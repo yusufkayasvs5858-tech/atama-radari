@@ -1,228 +1,125 @@
 {
-  "schemaVersion": "1.0",
-  "app": "ATAMA RADARI",
-  "telemetry": {
-    "lastRunAt": "2026-11-19T17:21:59.214Z",
-    "totalScanned": 5,
-    "newEligibleFound": 5,
-    "sourcesStatus": {
-      "osym": {
-        "name": "ÖSYM",
-        "status": "Doğrulandı (5 duyuru)",
-        "checkedAt": "2026-11-19T17:21:59.214Z"
-      },
-      "resmigazete": {
-        "name": "Resmî Gazete",
-        "status": "Erişim Hatası: This operation was aborted",
-        "checkedAt": "2026-11-19T17:21:59.214Z"
-      },
-      "kariyerkapisi": {
-        "name": "Kariyer Kapısı",
-        "status": "Doğrulandı (HTTP 200)",
-        "checkedAt": "2026-11-19T17:21:59.214Z"
-      },
-      "iskur": {
-        "name": "İŞKUR Kamu",
-        "status": "Doğrulandı (HTTP 200)",
-        "checkedAt": "2026-11-19T17:21:59.214Z"
-      }
+  "lastScan": "19.11.2026 20:46:44",
+  "sources": {
+    "osym": {
+      "ok": true,
+      "count": 8,
+      "note": "Doğrulandı (8 duyuru)"
+    },
+    "resmiGazete": {
+      "ok": true,
+      "count": 0,
+      "note": "Doğrulandı (0 ilan)"
+    },
+    "kariyerKapisi": {
+      "ok": true,
+      "count": 0,
+      "note": "Doğrulandı (HTTP 200)"
+    },
+    "iskur": {
+      "ok": true,
+      "count": 0,
+      "note": "Doğrulandı (HTTP 200)"
     }
   },
   "announcements": [
     {
-      "id": "rg_86c964a9d779ed6f",
+      "id": "aHR0cHM6Ly93d3cu",
       "source": "ÖSYM",
-      "sourceUrl": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-cevap-kgitlari-ve-aday-cevaplari-erisime-acildi",
-      "institution": "ÖSYM Merkezi Yerleştirme",
       "title": "2026-KPSS Ortaöğretim Sınavı: Cevap Kâğıtları ve Aday Cevapları Erişime Açıldı",
-      "category": "merkezi",
-      "city": "Türkiye Geneli",
-      "quota": 1,
-      "educationLevel": "ortaogretim",
-      "kpssType": "KPSS P94",
-      "kpssYear": "2026",
-      "minScore": null,
-      "qualificationCodes": "2001",
-      "deadlineDate": null,
-      "rawText": "2026-KPSS Ortaöğretim Sınavı: Cevap Kâğıtları ve Aday Cevapları Erişime Açıldı",
-      "publishDate": "2026-11-19",
-      "evaluation": {
-        "status": "YESIL",
-        "checks": [
-          {
-            "rule": "KPSS Puan Türü",
-            "status": "PASS",
-            "detail": "KPSS P94 uyumlu."
-          },
-          {
-            "rule": "Öğrenim Düzeyi",
-            "status": "PASS",
-            "detail": "Ortaöğretim / lise düzeyine açık."
-          }
-        ],
-        "failReasons": []
-      },
-      "lastCheckedAt": "2026-11-19T17:21:59.214Z",
-      "archived": false
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-cevap-kgitlari-ve-aday-cevaplari-erisime-acildi",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "YESIL",
+      "reasons": [],
+      "warnings": []
     },
     {
-      "id": "rg_d0d74e0b047bee6f",
+      "id": "aHR0cHM6Ly93d3cu",
       "source": "ÖSYM",
-      "sourceUrl": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-sinav-sonuclari-aciklandi",
-      "institution": "ÖSYM Merkezi Yerleştirme",
       "title": "2026-KPSS Ortaöğretim Sınavı: Sınav Sonuçları Açıklandı",
-      "category": "merkezi",
-      "city": "Türkiye Geneli",
-      "quota": 1,
-      "educationLevel": "ortaogretim",
-      "kpssType": "KPSS P94",
-      "kpssYear": "2026",
-      "minScore": null,
-      "qualificationCodes": "2001",
-      "deadlineDate": null,
-      "rawText": "2026-KPSS Ortaöğretim Sınavı: Sınav Sonuçları Açıklandı",
-      "publishDate": "2026-11-19",
-      "evaluation": {
-        "status": "YESIL",
-        "checks": [
-          {
-            "rule": "KPSS Puan Türü",
-            "status": "PASS",
-            "detail": "KPSS P94 uyumlu."
-          },
-          {
-            "rule": "Öğrenim Düzeyi",
-            "status": "PASS",
-            "detail": "Ortaöğretim / lise düzeyine açık."
-          }
-        ],
-        "failReasons": []
-      },
-      "lastCheckedAt": "2026-11-19T17:21:59.214Z",
-      "archived": false
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://www.osym.gov.tr/2026-kpss-ortaogretim-sinavi-sinav-sonuclari-aciklandi",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "YESIL",
+      "reasons": [],
+      "warnings": []
     },
     {
-      "id": "rg_c5a9e7f716e33d5e",
+      "id": "aHR0cHM6Ly93d3cu",
       "source": "ÖSYM",
-      "sourceUrl": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-lisans-basvuru-kilavuzu-6v7v57-22101148.pdf",
-      "institution": "ÖSYM Merkezi Yerleştirme",
+      "title": "2026 KPSS Ön Lisans Sınavı: Branş Bazında Sıralamalar",
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://www.osym.gov.tr/2026-kpss-on-lisans-sinavi-brans-bazinda-siralamalar",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "KIRMIZI",
+      "reasons": [
+        "Öğrenim düzeyi uyumsuz: Yalnızca Ön Lisans / Lisans mezunlarına açık."
+      ],
+      "warnings": []
+    },
+    {
+      "id": "aHR0cHM6Ly93d3cu",
+      "source": "ÖSYM",
+      "title": "2026-YKS Kapsamında Spor Bilimleri İçin Özel Yetenek Sınavı (ÖZYES): Ek Yerleştirme Sonuçları Açıklandı",
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://www.osym.gov.tr/2026-yks-kapsaminda-spor-bilimleri-icin-ozel-yetenek-sinavi-ozyes-ek-yerlestirme-sonuclari-aciklandi",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "SARI",
+      "reasons": [],
+      "warnings": [
+        "Duyuru metninde öğrenim düzeyi açıkça belirtilmemiş; kılavuz/ek kontrol edilmeli."
+      ]
+    },
+    {
+      "id": "aHR0cHM6Ly9kb2t1",
+      "source": "ÖSYM",
+      "title": "Adres İline Göre Tercih Edilebilecek Yakın sınav Merkezleri",
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://dokuman.osym.gov.tr/web//2026/9/adres-line-gore-tercih-edilebilecek-yakin-sinav-merkezleri-av6ji4-29160702.pdf",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "SARI",
+      "reasons": [],
+      "warnings": [
+        "Duyuru metninde öğrenim düzeyi açıkça belirtilmemiş; kılavuz/ek kontrol edilmeli."
+      ]
+    },
+    {
+      "id": "aHR0cHM6Ly9kb2t1",
+      "source": "ÖSYM",
       "title": "2026-KPSS Lisans Başvuru Kılavuzu",
-      "category": "merkezi",
-      "city": "Türkiye Geneli",
-      "quota": 1,
-      "educationLevel": "ortaogretim",
-      "kpssType": "KPSS P94",
-      "kpssYear": "2026",
-      "minScore": null,
-      "qualificationCodes": "2001",
-      "deadlineDate": null,
-      "rawText": "2026-KPSS Lisans Başvuru Kılavuzu",
-      "publishDate": "2026-11-19",
-      "evaluation": {
-        "status": "SARI",
-        "checks": [
-          {
-            "rule": "KPSS Puan Türü",
-            "status": "PASS",
-            "detail": "KPSS P94 uyumlu."
-          },
-          {
-            "rule": "Öğrenim Düzeyi",
-            "status": "PASS",
-            "detail": "Ortaöğretim / lise düzeyine açık."
-          },
-          {
-            "rule": "Metin Kapsamı",
-            "status": "WARN",
-            "detail": "İlan detay metni kısa; gizli özel şartlar için resmî bağlantıyı kontrol edin."
-          }
-        ],
-        "failReasons": []
-      },
-      "lastCheckedAt": "2026-11-19T17:21:59.214Z",
-      "archived": false
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-lisans-basvuru-kilavuzu-6v7v57-22101148.pdf",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "KIRMIZI",
+      "reasons": [
+        "Öğrenim düzeyi uyumsuz: Yalnızca Ön Lisans / Lisans mezunlarına açık."
+      ],
+      "warnings": []
     },
     {
-      "id": "rg_5b4d31486803c5fc",
+      "id": "aHR0cHM6Ly9kb2t1",
       "source": "ÖSYM",
-      "sourceUrl": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-on-lisans-basvuru-kilavuzu-l21r5f-22101148.pdf",
-      "institution": "ÖSYM Merkezi Yerleştirme",
       "title": "2026-KPSS Ön Lisans Başvuru Kılavuzu",
-      "category": "merkezi",
-      "city": "Türkiye Geneli",
-      "quota": 1,
-      "educationLevel": "ortaogretim",
-      "kpssType": "KPSS P94",
-      "kpssYear": "2026",
-      "minScore": null,
-      "qualificationCodes": "2001",
-      "deadlineDate": null,
-      "rawText": "2026-KPSS Ön Lisans Başvuru Kılavuzu",
-      "publishDate": "2026-11-19",
-      "evaluation": {
-        "status": "SARI",
-        "checks": [
-          {
-            "rule": "KPSS Puan Türü",
-            "status": "PASS",
-            "detail": "KPSS P94 uyumlu."
-          },
-          {
-            "rule": "Öğrenim Düzeyi",
-            "status": "PASS",
-            "detail": "Ortaöğretim / lise düzeyine açık."
-          },
-          {
-            "rule": "Metin Kapsamı",
-            "status": "WARN",
-            "detail": "İlan detay metni kısa; gizli özel şartlar için resmî bağlantıyı kontrol edin."
-          }
-        ],
-        "failReasons": []
-      },
-      "lastCheckedAt": "2026-11-19T17:21:59.214Z",
-      "archived": false
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-on-lisans-basvuru-kilavuzu-l21r5f-22101148.pdf",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "KIRMIZI",
+      "reasons": [
+        "Öğrenim düzeyi uyumsuz: Yalnızca Ön Lisans / Lisans mezunlarına açık."
+      ],
+      "warnings": []
     },
     {
-      "id": "rg_00067d6800c87099",
+      "id": "aHR0cHM6Ly9kb2t1",
       "source": "ÖSYM",
-      "sourceUrl": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-ortaogretim-basvuru-kilavuzu-0k8595-22101148.pdf",
-      "institution": "ÖSYM Merkezi Yerleştirme",
       "title": "2026-KPSS Ortaöğretim Başvuru Kılavuzu",
-      "category": "merkezi",
-      "city": "Türkiye Geneli",
-      "quota": 1,
-      "educationLevel": "ortaogretim",
-      "kpssType": "KPSS P94",
-      "kpssYear": "2026",
-      "minScore": null,
-      "qualificationCodes": "2001",
-      "deadlineDate": null,
-      "rawText": "2026-KPSS Ortaöğretim Başvuru Kılavuzu",
-      "publishDate": "2026-11-19",
-      "evaluation": {
-        "status": "SARI",
-        "checks": [
-          {
-            "rule": "KPSS Puan Türü",
-            "status": "PASS",
-            "detail": "KPSS P94 uyumlu."
-          },
-          {
-            "rule": "Öğrenim Düzeyi",
-            "status": "PASS",
-            "detail": "Ortaöğretim / lise düzeyine açık."
-          },
-          {
-            "rule": "Metin Kapsamı",
-            "status": "WARN",
-            "detail": "İlan detay metni kısa; gizli özel şartlar için resmî bağlantıyı kontrol edin."
-          }
-        ],
-        "failReasons": []
-      },
-      "lastCheckedAt": "2026-11-19T17:21:59.214Z",
-      "archived": false
+      "institution": "ÖSYM Merkezi Yerleştirme / Duyuru",
+      "url": "https://dokuman.osym.gov.tr/web//2026/9/2026-kpss-ortaogretim-basvuru-kilavuzu-0k8595-22101148.pdf",
+      "scannedAt": "19.11.2026 20:46:44",
+      "status": "YESIL",
+      "reasons": [],
+      "warnings": []
     }
   ]
 }
