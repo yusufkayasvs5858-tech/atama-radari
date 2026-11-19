@@ -1,0 +1,34 @@
+name: Atama Radari Otomatik Tarama
+
+on:
+  schedule:
+    - cron: '0 5,10,16 * * *' # TR Saati (UTC+3): 08:00, 13:00 ve 19:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tarama:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu Cek
+        uses: actions/checkout@v4
+
+      - name: Node.js Kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bagimliliklari Yukle
+        run: npm install
+
+      - name: Resmi Kaynaklari Tara ve Bildir
+        run: node scraper.js
+
+      - name: Sonuclari Veritabanina Kaydet
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Atama Radari Bot"
+          git add ilanlar.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Otomatik ilan taramasi guncellemesi" && git push)
