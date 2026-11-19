@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0",
+  "app": "ATAMA RADARI",
+  "telemetry": {
+    "lastRunAt": "2026-11-19T16:03:06.649Z",
+    "totalScanned": 0,
+    "newEligibleFound": 0,
+    "sourcesStatus": {
+      "osym": {
+        "name": "ÖSYM",
+        "status": "Başlangıç Dosyası Hazır",
+        "checkedAt": "2026-11-19T16:03:06.649Z"
+      },
+      "resmigazete": {
+        "name": "Resmî Gazete",
+        "status": "Başlangıç Dosyası Hazır",
+        "checkedAt": "2026-11-19T16:03:06.649Z"
+      },
+      "kariyerkapisi": {
+        "name": "Kariyer Kapısı",
+        "status": "Başlangıç Dosyası Hazır",
+        "checkedAt": "2026-11-19T16:03:06.649Z"
+      },
+      "iskur": {
+        "name": "İŞKUR Kamu",
+        "status": "Başlangıç Dosyası Hazır",
+        "checkedAt": "2026-11-19T16:03:06.649Z"
+      }
+    }
+  },
+  "announcements": []
+}

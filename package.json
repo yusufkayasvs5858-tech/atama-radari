@@ -1,0 +1,17 @@
+{
+  "name": "atama-radari-robot",
+  "version": "1.0.0",
+  "description": "ATAMA RADARI - Kisisel KPSS ve Kamu Personeli Otomatik Ilan Tarayici",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js",
+    "scrape": "node scraper.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
