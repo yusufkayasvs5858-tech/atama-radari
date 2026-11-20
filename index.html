@@ -1,784 +1,1242 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html class="dark" lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atama Radarı | KPSS P94 ve Kamu Personeli Takip Sistemi</title>
-  <!-- Tailwind CSS CDN -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta content="mobile_tab" name="shell-type"/>
+  <title>Atama Radarı | KPSS P94 & Kamu İlan Takip</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+
+  <style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #0b1326;
+        color: #dae2fd;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script>
+  <script id="tailwind-config">
     tailwind.config = {
-      darkMode: 'class',
+      darkMode: "class",
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
           colors: {
-            radar: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              dark: '#0f172a',
-              card: '#1e293b'
-            }
+            "on-surface-variant": "#c7c4d7",
+            "surface-container-high": "#222a3d",
+            "on-secondary-fixed": "#002113",
+            "surface-container-highest": "#2d3449",
+            "surface-dim": "#0b1326",
+            "tertiary": "#7bd0ff",
+            "on-tertiary-container": "#002d40",
+            "on-primary": "#1000a9",
+            "on-error-container": "#ffdad6",
+            "outline": "#908fa0",
+            "secondary-fixed-dim": "#4edea3",
+            "tertiary-container": "#009bd1",
+            "surface-container": "#171f33",
+            "surface-variant": "#2d3449",
+            "on-secondary-container": "#00311f",
+            "on-secondary-fixed-variant": "#005236",
+            "primary-fixed-dim": "#c0c1ff",
+            "tertiary-fixed": "#c4e7ff",
+            "tertiary-fixed-dim": "#7bd0ff",
+            "on-tertiary-fixed": "#001e2c",
+            "surface": "#0b1326",
+            "primary": "#c0c1ff",
+            "inverse-primary": "#494bd6",
+            "inverse-on-surface": "#283044",
+            "surface-container-lowest": "#060e20",
+            "primary-fixed": "#e1e0ff",
+            "on-error": "#690005",
+            "surface-container-low": "#131b2e",
+            "on-tertiary-fixed-variant": "#004c69",
+            "inverse-surface": "#dae2fd",
+            "secondary": "#4edea3",
+            "on-background": "#dae2fd",
+            "secondary-fixed": "#6ffbbe",
+            "background": "#0b1326",
+            "on-secondary": "#003824",
+            "secondary-container": "#00a572",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "primary-container": "#8083ff",
+            "surface-tint": "#c0c1ff",
+            "on-surface": "#dae2fd",
+            "on-primary-fixed": "#07006c",
+            "on-primary-container": "#0d0096",
+            "error": "#ffb4ab",
+            "surface-bright": "#31394d",
+            "error-container": "#93000a",
+            "on-tertiary": "#00354a",
+            "outline-variant": "#464554"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "margin-tablet": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "0.75rem",
+            "gutter-desktop": "1.5rem",
+            "space-xl": "1.5rem",
+            "space-xs": "0.25rem",
+            "gutter-tablet": "1rem",
+            "gutter": "0.75rem",
+            "space-lg": "1rem",
+            "margin-desktop": "2rem",
+            "margin": "1rem"
+          },
+          fontFamily: {
+            "headline-md": ["Inter"],
+            "headline-xl": ["Inter"],
+            "label-md": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "label-sm": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["JetBrains Mono"]
+          },
+          fontSize: {
+            "headline-md": ["20px", { lineHeight: "26px", fontWeight: "600" }],
+            "headline-xl": ["32px", { lineHeight: "38px", fontWeight: "700" }],
+            "label-md": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "label-sm": ["10px", { lineHeight: "12px", fontWeight: "500" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+            "headline-lg": ["24px", { lineHeight: "30px", fontWeight: "700" }],
+            "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+            "label-lg": ["13px", { lineHeight: "16px", fontWeight: "600" }]
           }
         }
       }
-    }
+    };
   </script>
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .badge-glow-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.35); }
-    .badge-glow-yellow { box-shadow: 0 0 15px rgba(234, 179, 8, 0.35); }
-    .badge-glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.35); }
-  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
-
-  <!-- Üst Menü / Navbar -->
-  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-          <i class="fa-solid fa-radar text-lg animate-pulse"></i>
+<body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen">
+  
+  <!-- Üst Menü (Navbar) -->
+  <header class="fixed top-0 w-full z-50 bg-surface-container-low/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.3)] pt-safe">
+    <div class="h-16 px-margin flex items-center justify-between gap-space-sm">
+      <div class="flex items-center gap-space-sm min-w-0">
+        <div class="w-8 h-8 rounded-lg bg-primary-container/20 border border-primary/30 flex items-center justify-center text-primary flex-shrink-0">
+          <span class="material-symbols-outlined text-[20px]">radar</span>
         </div>
-        <div>
-          <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            ATAMA RADARI
-            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">v2.1 Canlı</span>
-          </h1>
-          <p class="text-xs text-slate-400">KPSS P94 • Ortaöğretim • Kamu Personel Alım Takibi</p>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-space-xs">
+            <span class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">Atama Radarı</span>
+            <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-bold">P94</span>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant truncate">KPSS P94 &amp; Kamu İlan Takip</span>
         </div>
       </div>
-
-      <!-- Aday Profil Rozeti -->
-      <div class="hidden md:flex items-center gap-3 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 text-xs text-slate-300">
-        <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
-          <i class="fa-solid fa-id-card"></i> Aktif Profil:
-        </span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">Ortaöğretim</span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">P94 (75 Puan)</span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">B Ehliyet</span>
-        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">2001 / 6506</span>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <button id="refreshBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition">
-          <i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">Yenile</span>
+      
+      <div class="flex items-center gap-space-xs flex-shrink-0">
+        <div class="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container border border-outline-variant/30 text-secondary">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+          </span>
+          <span class="font-label-sm text-label-sm text-secondary tracking-tighter" id="header-timestamp">21.11.2026 01:00</span>
+        </div>
+        
+        <button class="flex items-center gap-1 h-11 px-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors text-on-surface-variant hover:text-on-surface" id="sources-badge-btn">
+          <span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span>
+          <span class="font-label-sm text-label-sm font-semibold hidden xs:inline" id="header-sources-count">8 Kaynak</span>
         </button>
+        
+        <button aria-label="Yenile" class="w-11 h-11 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" id="header-refresh-btn">
+          <span class="material-symbols-outlined text-[20px]">sync</span>
+        </button>
+        
+        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 ml-1" title="Aday: Ortaöğretim / KPSS P94 (75 Puan) • B Ehliyet">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- Ana İçerik -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
+  <main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen">
+    <div class="flex flex-col w-full text-on-surface">
 
-    <!-- İstatistik Kartları -->
-    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
-      <!-- Toplam İlan -->
-      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
-          <span>Toplam İlan</span>
-          <i class="fa-solid fa-layer-group text-slate-500"></i>
-        </div>
-        <div class="text-2xl font-bold text-white mt-2" id="statTotal">0</div>
-        <div class="text-[11px] text-slate-400 mt-1">Aktif taranan havuz</div>
-      </div>
-
-      <!-- Yeşil İlan -->
-      <div class="bg-slate-900 border border-emerald-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-emerald-600/50 transition">
-        <div class="flex items-center justify-between text-emerald-400 text-xs font-medium">
-          <span>Tam Uyumlu</span>
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-        </div>
-        <div class="text-2xl font-bold text-emerald-400 mt-2" id="statGreen">0</div>
-        <div class="text-[11px] text-emerald-500/80 mt-1">Hemen başvurulabilir</div>
-      </div>
-
-      <!-- Sarı İlan -->
-      <div class="bg-slate-900 border border-amber-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-amber-600/50 transition">
-        <div class="flex items-center justify-between text-amber-400 text-xs font-medium">
-          <span>İnceleme Gerekli</span>
-          <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
-        </div>
-        <div class="text-2xl font-bold text-amber-400 mt-2" id="statYellow">0</div>
-        <div class="text-[11px] text-amber-500/80 mt-1">Özel şartları kontrol et</div>
-      </div>
-
-      <!-- Kırmızı İlan -->
-      <div class="bg-slate-900 border border-rose-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-rose-600/50 transition">
-        <div class="flex items-center justify-between text-rose-400 text-xs font-medium">
-          <span>Elenen / Geçmiş</span>
-          <i class="fa-solid fa-ban text-rose-500"></i>
-        </div>
-        <div class="text-2xl font-bold text-rose-400 mt-2" id="statRed">0</div>
-        <div class="text-[11px] text-rose-500/80 mt-1">Profil dışı veya süresi biten</div>
-      </div>
-
-      <!-- Favoriler -->
-      <div class="col-span-2 md:col-span-1 bg-slate-900 border border-indigo-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-indigo-600/50 transition">
-        <div class="flex items-center justify-between text-indigo-400 text-xs font-medium">
-          <span>Favorilerim</span>
-          <i class="fa-solid fa-star text-indigo-400"></i>
-        </div>
-        <div class="text-2xl font-bold text-indigo-400 mt-2" id="statFavorites">0</div>
-        <div class="text-[11px] text-indigo-400/80 mt-1">Yıldıza eklenenler</div>
-      </div>
-    </section>
-
-    <!-- Filtreleme ve Arama Çubuğu -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-      <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
-        <!-- Arama Kutusu -->
-        <div class="relative w-full md:w-96">
-          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-            <i class="fa-solid fa-magnifying-glass"></i>
+      <!-- Radar Status Pulse Strip -->
+      <section class="px-margin mb-space-md">
+        <div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-low shadow-sm">
+          <div class="flex items-center gap-space-xs min-w-0">
+            <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+            </span>
+            <span class="font-label-sm text-label-sm text-secondary truncate tracking-tight">Canlı Tarama Aktif</span>
+            <span class="font-label-sm text-label-sm text-outline px-1">•</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant truncate">Resmî Gazete, SBB Kamu, Sağlık, Adalet, GSB, ÖSYM, İŞKUR</span>
+          </div>
+          <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-tertiary font-semibold flex-shrink-0" id="pulse-scan-time">
+            Otomatik Güncel
           </span>
-          <input type="text" id="searchInput" placeholder="Unvan, Kurum, Şehir veya Nitelik Kodu ara..." class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
-          <button id="clearSearchBtn" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300">
-            <i class="fa-solid fa-xmark"></i>
+        </div>
+      </section>
+
+      <!-- 1. KPI İstatistik Kartları (2x2 Grid) -->
+      <section class="px-margin mb-space-lg">
+        <div class="grid grid-cols-2 gap-gutter">
+          <!-- Card 1: Toplam Aktif İlan -->
+          <div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between shadow-sm relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-space-xs">
+              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Aktif İlan</span>
+              <div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[18px]">business_center</span>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-1 my-0.5">
+              <span class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight" id="kpi-total">0</span>
+              <span class="font-label-sm text-label-sm text-secondary" id="kpi-total-sub">taranan</span>
+            </div>
+            <p class="font-label-sm text-label-sm text-on-surface-variant truncate">Tüm kaynaklar izleniyor</p>
+          </div>
+
+          <!-- Card 2: Tam Uygun İlanlar -->
+          <div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between shadow-sm relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-space-xs">
+              <span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Tam Uygun</span>
+              <div class="w-7 h-7 rounded-lg bg-secondary/15 flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-1 my-0.5">
+              <span class="font-headline-lg text-headline-lg font-bold text-secondary tracking-tight" id="kpi-green">0</span>
+              <span class="font-label-sm text-label-sm text-secondary-fixed-dim">%100 P94</span>
+            </div>
+            <p class="font-label-sm text-label-sm text-on-surface-variant truncate">Nitelik &amp; Puan eşleşti</p>
+          </div>
+
+          <!-- Card 3: İnceleme Gerekli -->
+          <div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between shadow-sm relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-space-xs">
+              <span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">İnceleme</span>
+              <div class="w-7 h-7 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-fixed-dim">
+                <span class="material-symbols-outlined text-[18px]">warning</span>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-1 my-0.5">
+              <span class="font-headline-lg text-headline-lg font-bold text-primary-fixed-dim tracking-tight" id="kpi-yellow">0</span>
+              <span class="font-label-sm text-label-sm text-outline">şartlı</span>
+            </div>
+            <p class="font-label-sm text-label-sm text-on-surface-variant truncate">Sertifika/Birim kontrolü</p>
+          </div>
+
+          <!-- Card 4: Süresi Geçen / Elenen -->
+          <div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between shadow-sm relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-space-xs">
+              <span class="font-label-sm text-label-sm text-error uppercase tracking-wider font-semibold">Süresi Biten</span>
+              <div class="w-7 h-7 rounded-lg bg-error-container/20 flex items-center justify-center text-error">
+                <span class="material-symbols-outlined text-[18px]">event_busy</span>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-1 my-0.5">
+              <span class="font-headline-lg text-headline-lg font-bold text-error tracking-tight" id="kpi-red">0</span>
+              <span class="font-label-sm text-label-sm text-error-container">arşiv</span>
+            </div>
+            <p class="font-label-sm text-label-sm text-on-surface-variant truncate">Uyumsuz veya süresi dolan</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Gelişmiş Filtreleme ve Arama Çubuğu -->
+      <section class="px-margin mb-space-md">
+        <!-- Search Bar -->
+        <div class="relative w-full mb-space-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+            <span class="material-symbols-outlined text-[20px]">search</span>
+          </div>
+          <input class="w-full h-12 pl-10 pr-10 rounded-xl bg-surface-container-low text-on-surface font-body-sm text-body-sm placeholder:text-outline focus:outline-none focus:bg-surface-container-high transition-colors" id="search-input" placeholder="Kurum adı, unvan, şehir (örn: Adalet, Şoför, 2001, Zabıt)..." type="search"/>
+          <button aria-label="Aramayı Temizle" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-outline hover:text-on-surface" id="clear-search" type="button">
+            <span class="material-symbols-outlined text-[18px]">cancel</span>
           </button>
         </div>
 
-        <!-- Açılır Kutu Filtreleri (Kaynak, Şehir, Sıralama) -->
-        <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
-          <!-- Kaynak -->
-          <select id="sourceFilter" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-700/80 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
-            <option value="ALL">Tüm Kaynaklar</option>
-            <option value="resmiGazete">Resmî Gazete</option>
-            <option value="kamuIlan">Kamu İlan (SBB)</option>
-            <option value="saglikBakanligi">Sağlık Bakanlığı</option>
-            <option value="adaletBakanligi">Adalet Bakanlığı</option>
-            <option value="gsb">Gençlik ve Spor Bak.</option>
-            <option value="osym">ÖSYM</option>
-            <option value="iskur">İŞKUR</option>
-          </select>
+        <!-- Quick Status Horizontal Tabs -->
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1.5 no-scrollbar scroll-smooth" id="status-tabs-container">
+          <button class="filter-pill flex-shrink-0 h-9 px-3.5 rounded-full font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-primary text-on-primary shadow-sm" data-filter="all">
+            <span>Tümü</span>
+            <span class="opacity-80 font-label-sm" id="tab-count-all">(0)</span>
+          </button>
+          <button class="filter-pill flex-shrink-0 h-9 px-3.5 rounded-full font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="tam-uygun">
+            <span class="w-2 h-2 rounded-full bg-secondary"></span>
+            <span>Tam Uygun</span>
+            <span class="font-label-sm text-secondary font-bold" id="tab-count-green">(0)</span>
+          </button>
+          <button class="filter-pill flex-shrink-0 h-9 px-3.5 rounded-full font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="inceleme">
+            <span class="w-2 h-2 rounded-full bg-primary-container"></span>
+            <span>İnceleme</span>
+            <span class="font-label-sm text-primary-fixed-dim font-bold" id="tab-count-yellow">(0)</span>
+          </button>
+          <button class="filter-pill flex-shrink-0 h-9 px-3.5 rounded-full font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="uyumsuz">
+            <span class="w-2 h-2 rounded-full bg-error"></span>
+            <span>Süresi Geçen</span>
+            <span class="font-label-sm text-error font-bold" id="tab-count-red">(0)</span>
+          </button>
+          <button class="filter-pill flex-shrink-0 h-9 px-3.5 rounded-full font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-surface-container text-on-surface-variant hover:bg-surface-container-high" data-filter="favoriler">
+            <span class="material-symbols-outlined text-[15px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span>Favorilerim</span>
+            <span class="font-label-sm text-tertiary font-bold" id="tab-count-fav">(0)</span>
+          </button>
+        </div>
 
-          <!-- Sıralama -->
-          <select id="sortFilter" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-700/80 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
-            <option value="PRIORITY">Sırala: Uygunluk (Önce Yeşil)</option>
-            <option value="DEADLINE">Sırala: Son Başvuru (En Yakın)</option>
-            <option value="QUOTA">Sırala: Kontenjan (Çoktan Aza)</option>
-            <option value="NEWEST">Sırala: Eklenme Tarihi</option>
-          </select>
+        <!-- Dropdown Filter Mini Row -->
+        <div class="grid grid-cols-3 gap-space-xs mt-space-sm">
+          <div class="relative">
+            <select class="w-full h-9 pl-2 pr-6 appearance-none rounded-lg bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant focus:outline-none focus:text-on-surface" id="source-select">
+              <option value="ALL">Tüm Kaynaklar</option>
+              <option value="resmiGazete">Resmî Gazete</option>
+              <option value="kamuIlan">Kamu İlan SBB</option>
+              <option value="adaletBakanligi">Adalet Bakanlığı</option>
+              <option value="saglikBakanligi">Sağlık Bakanlığı</option>
+              <option value="gsb">Gençlik ve Spor Bak.</option>
+              <option value="osym">ÖSYM</option>
+              <option value="iskur">İŞKUR</option>
+              <option value="kariyerKapisi">Kariyer Kapısı</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-1.5 top-2 pointer-events-none text-[16px] text-outline">expand_more</span>
+          </div>
+          
+          <div class="relative">
+            <select class="w-full h-9 pl-2 pr-6 appearance-none rounded-lg bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant focus:outline-none focus:text-on-surface" id="city-select">
+              <option value="ALL">Tüm Şehirler</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-1.5 top-2 pointer-events-none text-[16px] text-outline">expand_more</span>
+          </div>
+          
+          <div class="relative">
+            <select class="w-full h-9 pl-2 pr-6 appearance-none rounded-lg bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant focus:outline-none focus:text-on-surface" id="sort-select">
+              <option value="PRIORITY">Uygunluk (Önce Yeşil)</option>
+              <option value="DEADLINE">Başvuru: Yaklaşan</option>
+              <option value="QUOTA">Kontenjan: En Çok</option>
+              <option value="NEWEST">En Yeni İlanlar</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-1.5 top-2 pointer-events-none text-[16px] text-outline">expand_more</span>
+          </div>
+        </div>
+      </section>
 
-          <!-- İncelenenleri Gizle Toggle -->
-          <label class="flex items-center gap-2 cursor-pointer bg-slate-950 px-3 py-2 rounded-xl border border-slate-700/80 text-xs text-slate-300 select-none hover:border-slate-600 transition">
-            <input type="checkbox" id="hideReviewedCheckbox" class="rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
-            <span>İncelenenleri Gizle</span>
-          </label>
+      <!-- Feed Header Status Info -->
+      <div class="px-margin flex items-center justify-between mb-space-sm">
+        <div class="flex items-center gap-1.5">
+          <span class="font-headline-sm text-headline-sm text-on-surface">Eşleşen Kadrolar</span>
+          <span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest text-primary font-bold" id="results-count">Yükleniyor...</span>
+        </div>
+        <button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors" id="refresh-feed">
+          <span class="material-symbols-outlined text-[16px]">sync</span>
+          <span class="font-label-sm text-label-sm">Yenile</span>
+        </button>
+      </div>
+
+      <!-- 3. Dinamik İlan Kartları (Recruitment Feed) -->
+      <div class="px-margin flex flex-col gap-space-md mb-space-xl" id="cards-container">
+        <!-- JS ile dinamik olarak doldurulacaktır -->
+      </div>
+
+      <!-- Empty Search State Container -->
+      <div class="hidden px-margin py-12 flex flex-col items-center justify-center text-center" id="empty-state">
+        <div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-outline mb-space-sm">
+          <span class="material-symbols-outlined text-[32px]">manage_search</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Aramanızla Eşleşen İlan Bulunamadı</h3>
+        <p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mb-space-md">
+          Filtrelerinizi gevşetmeyi veya farklı bir anahtar kelime/nitelik kodu denemeyi düşünebilirsiniz.
+        </p>
+        <button class="h-10 px-4 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md font-semibold" id="reset-filters" type="button">
+          Filtreleri Sıfırla
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 4. Detay Modalı (Modal Drawer Önizleme Penceresi) -->
+  <div aria-hidden="true" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4 bg-surface-dim/80 backdrop-blur-md" id="detail-modal">
+    <!-- Modal Card Container -->
+    <div class="w-full sm:max-w-lg max-h-[85vh] rounded-t-2xl sm:rounded-2xl bg-surface-container shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-200">
+      <!-- Top Drag Indicator (Mobile) -->
+      <div class="w-12 h-1 rounded-full bg-outline-variant/60 mx-auto mt-2.5 mb-1 sm:hidden"></div>
+      
+      <!-- Modal Header -->
+      <div class="p-space-md flex items-start justify-between gap-space-sm bg-surface-container-high/60">
+        <div class="flex items-center gap-space-sm min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary flex-shrink-0">
+            <span class="material-symbols-outlined text-[24px]">account_balance</span>
+          </div>
+          <div class="min-w-0">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface truncate leading-tight" id="modal-title">
+              İlan Başlığı
+            </h3>
+            <p class="font-label-sm text-label-sm text-secondary truncate" id="modal-subtitle">
+              Kamu Kurumu Adı
+            </p>
+          </div>
+        </div>
+        <button aria-label="Kapat" class="w-10 h-10 rounded-lg bg-surface-container hover:bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0" onclick="closeDetailModal()" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div class="p-space-md flex flex-col gap-space-md overflow-y-auto max-h-[530px]">
+        <!-- Summary Strip -->
+        <div class="grid grid-cols-2 gap-space-xs p-space-sm rounded-xl bg-surface-container-low">
+          <div>
+            <span class="font-label-sm text-label-sm text-outline block">Puan / Tür</span>
+            <span class="font-label-md text-label-md text-on-surface font-bold" id="modal-score">KPSS P94</span>
+          </div>
+          <div>
+            <span class="font-label-sm text-label-sm text-outline block">Açık Kontenjan</span>
+            <span class="font-label-md text-label-md text-secondary font-bold" id="modal-quota">Belirtilmedi</span>
+          </div>
+        </div>
+
+        <!-- Uygunluk Raporu Notu -->
+        <div class="p-space-sm rounded-lg bg-secondary/10 flex items-start gap-space-xs" id="modal-match-box">
+          <span class="material-symbols-outlined text-[18px] text-secondary flex-shrink-0 mt-0.5" id="modal-match-icon">check_circle</span>
+          <p class="font-body-sm text-body-sm text-secondary leading-snug" id="modal-match-reason">
+            Analiz ediliyor...
+          </p>
+        </div>
+
+        <!-- Nitelik Kodları Listesi -->
+        <div id="modal-codes-container">
+          <div class="flex items-center justify-between mb-space-xs">
+            <span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider">
+              Aranan Nitelik Kodları (ÖSYM)
+            </span>
+            <span class="font-label-sm text-label-sm text-secondary" id="modal-codes-count">Koşullar</span>
+          </div>
+          <div class="flex flex-col gap-space-xs" id="modal-codes-list">
+            <!-- Dinamik doldurulacak -->
+          </div>
+        </div>
+
+        <!-- Detay Metni -->
+        <div id="modal-details-box" class="hidden">
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider block mb-space-xs">
+            Resmi Duyuru Notu / Açıklama
+          </span>
+          <p class="p-space-sm rounded-lg bg-surface-container-low text-body-sm text-on-surface-variant leading-relaxed max-h-36 overflow-y-auto" id="modal-details-text">
+          </p>
+        </div>
+
+        <!-- Başvuru Takvimi -->
+        <div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-bold uppercase tracking-wider block mb-space-xs">
+            Başvuru Takvimi &amp; Şekli
+          </span>
+          <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-body-sm">
+              <span class="text-outline">Son Başvuru Tarihi:</span>
+              <span class="font-label-md text-label-md text-error font-bold" id="modal-deadline">Belirtilmedi</span>
+            </div>
+            <div class="flex items-center justify-between text-body-sm pt-1 mt-1 border-t border-surface-container-high">
+              <span class="text-outline">Kaynak:</span>
+              <span class="font-label-sm text-label-sm text-tertiary" id="modal-source-channel">Resmi İlan Platformu</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Durum Sekmeleri (Tabs) -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-2 border-t border-slate-800/80 text-xs scrollbar-none">
-        <button data-status="ALL" class="status-tab active-tab px-4 py-2 rounded-lg font-semibold bg-emerald-600 text-white transition flex items-center gap-1.5">
-          <i class="fa-solid fa-list-ul"></i> Tümü
-        </button>
-        <button data-status="YESIL" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 🟢 Tam Uyumlu
-        </button>
-        <button data-status="SARI" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 transition flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-amber-500"></span> 🟡 İnceleme Gerekli
-        </button>
-        <button data-status="KIRMIZI" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-rose-400 border border-rose-500/30 transition flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-rose-500"></span> 🔴 Elenen / Geçmiş
-        </button>
-        <button data-status="FAVORITES" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-indigo-500/30 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-star"></i> Favorilerim
-        </button>
-      </div>
-    </section>
-
-    <!-- İlan Kartları Listesi -->
-    <section id="postingsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <!-- Dinamik olarak JS ile doldurulacak -->
-    </section>
-
-    <!-- Boş Durum (Empty State) -->
-    <div id="emptyState" class="hidden text-center py-16 bg-slate-900/60 rounded-2xl border border-slate-800">
-      <div class="w-16 h-16 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-slate-500 text-2xl mb-3">
-        <i class="fa-solid fa-filter-circle-xmark"></i>
-      </div>
-      <h3 class="text-base font-semibold text-white">Filtrelere Uygun İlan Bulunamadı</h3>
-      <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Arama terimini değiştirebilir veya filtreleri temizleyerek tüm ilanları listeleyebilirsiniz.</p>
-      <button id="resetFiltersBtn" class="mt-4 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition">
-        Filtreleri Temizle
-      </button>
-    </div>
-
-  </main>
-
-  <!-- Detay Modalı (Modal) -->
-  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 relative">
-      <button id="closeModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div id="modalContent" class="space-y-4">
-        <!-- JS ile doldurulacak -->
+      <!-- Modal Bottom Actions -->
+      <div class="p-space-md bg-surface-container-high/60 flex flex-col gap-space-xs">
+        <div class="grid grid-cols-2 gap-space-xs">
+          <button class="h-11 px-3 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" id="modal-copy-btn" type="button">
+            <span class="material-symbols-outlined text-[18px]">link</span>
+            <span>Linki Kopyala</span>
+          </button>
+          <button class="h-11 px-3 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" id="modal-share-btn" type="button">
+            <span class="material-symbols-outlined text-[18px]">share</span>
+            <span>WhatsApp / Paylaş</span>
+          </button>
+        </div>
+        <a class="h-12 w-full rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 shadow-md transition-colors text-center" href="#" id="modal-apply-btn" target="_blank" rel="noopener noreferrer">
+          <span>Resmî İlana Git</span>
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- Alt Bilgi / Footer -->
-  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div>
-        <span class="font-semibold text-slate-400">Atama Radarı v2.1</span> — Kişisel Kamu Personel Alım & Uygunluk Analiz Otomasyonu
-      </div>
-      <div class="flex items-center gap-4">
-        <span id="lastScanText">Son Tarama: Yükleniyor...</span>
-        <span>•</span>
-        <a href="https://github.com" target="_blank" class="hover:text-emerald-400 transition">
-          <i class="fa-brands fa-github"></i> GitHub
-        </a>
-      </div>
+  <!-- Sabit Alt Gezinme Çubuğu (Bottom Navigation) -->
+  <nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.4)]" data-active-classes="text-primary font-semibold">
+    <div class="flex justify-around items-center h-16 px-space-xs">
+      <a class="bottom-nav-item flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-primary font-semibold transition-colors" data-path="ilanlar" href="#">
+        <span class="material-symbols-outlined text-[22px]">radar</span>
+        <span class="font-label-sm text-label-sm tracking-tight">İlanlar</span>
+      </a>
+      <a class="bottom-nav-item flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="uygunluk" href="#">
+        <span class="material-symbols-outlined text-[22px]">fact_check</span>
+        <span class="font-label-sm text-label-sm tracking-tight">Uygunluk</span>
+      </a>
+      <a class="bottom-nav-item flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="takip-listem" href="#">
+        <span class="material-symbols-outlined text-[22px]">star</span>
+        <span class="font-label-sm text-label-sm tracking-tight">Takip Listem</span>
+      </a>
+      <a class="bottom-nav-item flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="ayarlar" href="#">
+        <span class="material-symbols-outlined text-[22px]">settings</span>
+        <span class="font-label-sm text-label-sm tracking-tight">Ayarlar</span>
+      </a>
     </div>
-  </footer>
+  </nav>
 
-  <!-- Ön Yüz Mantığı (JavaScript) -->
+  <!-- Dinamik Ön Yüz JavaScript Motoru -->
   <script>
-    // Başlangıç verisi (Yerel JSON erişilemezse veya file:// protokolünde açılırsa yedek olarak devreye girer)
-    const DEFAULT_EMBEDDED_POSTINGS = [
-      {
-        "id": "e39bc4599fdd343a386e6d30",
-        "sourceKey": "adaletBakanligi",
-        "sourceName": "T.C. Adalet Bakanlığı (PGM)",
-        "institution": "T.C. Adalet Bakanlığı",
-        "title": "Sözleşmeli Zabıt Kâtibi, Mübaşir ve İnfaz Koruma Memuru (İKM) Alımı",
-        "url": "https://pgm.adalet.gov.tr/",
-        "city": "81 İl Geneli",
-        "quota": 3500,
-        "deadline": "28.11.2026",
-        "educationLevel": "Ortaöğretim",
-        "kpssType": "P94",
-        "minKpssScore": 70,
-        "qualificationCodes": ["2001", "6225", "7225"],
-        "details": "Adalet Bakanlığı taşra teşkilatına en az lise mezunu 2001 ve 6225 MEB Onaylı Bilgisayar İşletmeni sertifikalı sözleşmeli personel alımı yapılacaktır.",
-        "status": "YESIL",
-        "matchScore": 95,
-        "matchReason": "2001 (Ortaöğretim) ve KPSS P94 şartı adayın profili ile %100 uyumludur.",
-        "isExpired": false
-      },
-      {
-        "id": "1cea8a3f1374342803b73839",
-        "sourceKey": "saglikBakanligi",
-        "sourceName": "T.C. Sağlık Bakanlığı (YHGM)",
-        "institution": "T.C. Sağlık Bakanlığı",
-        "title": "Sürekli İşçi (Temizlik, Güvenlik, Klinik Destek) Alımı Kura Duyurusu",
-        "url": "https://yhgm.saglik.gov.tr/",
-        "city": "Türkiye Geneli",
-        "quota": 8000,
-        "deadline": "30.11.2026",
-        "educationLevel": "Ortaöğretim",
-        "kpssType": "KPSS Şartsız / Kura",
-        "minKpssScore": null,
-        "qualificationCodes": ["2001", "7225", "7300"],
-        "details": "Sağlık Bakanlığı taşra teşkilatında istihdam edilmek üzere İŞKUR üzerinden noter kurası ile sürekli işçi alımı gerçekleştirilecektir.",
-        "status": "YESIL",
-        "matchScore": 92,
-        "matchReason": "KPSS şartsız sürekli işçi alımı; lise ve dengi okul mezunları başvurabilir.",
-        "isExpired": false
-      },
-      {
-        "id": "fb8eb81b669a503101e5a08a",
-        "sourceKey": "gsb",
-        "sourceName": "T.C. Gençlik ve Spor Bakanlığı",
-        "institution": "T.C. Gençlik ve Spor Bakanlığı",
-        "title": "Sözleşmeli Destek Personeli (Temizlik & Bakım) ve Güvenlik Görevlisi Alımı",
-        "url": "https://www.gsb.gov.tr/",
-        "city": "Ankara, İstanbul, İzmir ve Diğer İller",
-        "quota": 1250,
-        "deadline": "05.12.2026",
-        "educationLevel": "Ortaöğretim",
-        "kpssType": "P94",
-        "minKpssScore": 60,
-        "qualificationCodes": ["2001", "6506"],
-        "details": "Gençlik ve Spor Bakanlığı yurt ve il müdürlüklerinde B sınıfı ehliyetli ve lise mezunu personel istihdam edilecektir.",
-        "status": "YESIL",
-        "matchScore": 94,
-        "matchReason": "2001 (Ortaöğretim) ve B sınıfı ehliyet (6506) şartları tam uyumludur.",
-        "isExpired": false
-      },
-      {
-        "id": "9e67d12eb0def4a81382b252",
-        "sourceKey": "resmiGazete",
-        "sourceName": "T.C. Resmî Gazete",
-        "institution": "Çeşitli Üniversiteler ve Belediyeler",
-        "title": "4/B Sözleşmeli Büro Personeli ve Destek Elemanı Alım İlanları",
-        "url": "https://www.resmigazete.gov.tr/",
-        "city": "Muhtelif İller",
-        "quota": 450,
-        "deadline": "02.12.2026",
-        "educationLevel": "Ortaöğretim / Ön Lisans",
-        "kpssType": "P94 / P93",
-        "minKpssScore": 65,
-        "qualificationCodes": ["2001", "6225"],
-        "details": "Resmî Gazete'de yayımlanan üniversite ve belediye kadroları.",
-        "status": "SARI",
-        "matchScore": 70,
-        "matchReason": "Çoklu kadro içeren karma ilan; birim bazlı özel şartlar ve sertifikalar kontrol edilmelidir.",
-        "isExpired": false
-      },
-      {
-        "id": "3dadc7a77c44645d20686d75",
-        "sourceKey": "kamuIlan",
-        "sourceName": "Cumhurbaşkanlığı Kamu İlan",
-        "institution": "Hazine ve Maliye Bakanlığı",
-        "title": "Vergi Müfettiş Yardımcılığı Giriş Sınavı",
-        "url": "https://kamuilan.sbb.gov.tr/",
-        "city": "Ankara",
-        "quota": 150,
-        "deadline": "15.12.2026",
-        "educationLevel": "Lisans",
-        "kpssType": "P3",
-        "minKpssScore": 80,
-        "qualificationCodes": ["4001"],
-        "details": "Yalnızca 4 yıllık Lisans mezunlarına açık A Grubu kadrosudur.",
-        "status": "KIRMIZI",
-        "matchScore": 10,
-        "matchReason": "Yalnızca 4 yıllık Lisans mezunlarına açık A Grubu kadrosudur.",
-        "isExpired": false
+    (function initAtamaRadariApp() {
+      // Yerleşik Yedek Veri (file:// veya ağ hatasında güvenli fallback)
+      const DEFAULT_EMBEDDED_POSTINGS = [
+        {
+          "id": "e39bc4599fdd343a386e6d30",
+          "sourceKey": "adaletBakanligi",
+          "sourceName": "T.C. Adalet Bakanlığı (PGM)",
+          "institution": "T.C. Adalet Bakanlığı",
+          "title": "Sözleşmeli Zabıt Kâtibi, Mübaşir ve İnfaz Koruma Memuru (İKM) Alımı",
+          "url": "https://pgm.adalet.gov.tr/",
+          "city": "81 İl Geneli",
+          "quota": 3500,
+          "deadline": "28.11.2026",
+          "educationLevel": "Ortaöğretim",
+          "kpssType": "P94",
+          "minKpssScore": 70,
+          "qualificationCodes": ["2001", "6225", "7225"],
+          "details": "Adalet Bakanlığı taşra teşkilatına en az lise mezunu 2001 ve 6225 MEB Onaylı Bilgisayar İşletmeni sertifikalı sözleşmeli personel alımı yapılacaktır.",
+          "status": "YESIL",
+          "matchScore": 95,
+          "matchReason": "2001 (Ortaöğretim) ve KPSS P94 şartı adayın profili ile %100 uyumludur.",
+          "isExpired": false
+        },
+        {
+          "id": "1cea8a3f1374342803b73839",
+          "sourceKey": "saglikBakanligi",
+          "sourceName": "T.C. Sağlık Bakanlığı (YHGM)",
+          "institution": "T.C. Sağlık Bakanlığı",
+          "title": "Sürekli İşçi (Temizlik, Güvenlik, Klinik Destek) Alımı Kura Duyurusu",
+          "url": "https://yhgm.saglik.gov.tr/",
+          "city": "Türkiye Geneli",
+          "quota": 8000,
+          "deadline": "30.11.2026",
+          "educationLevel": "Ortaöğretim",
+          "kpssType": "KPSS Şartsız / Kura",
+          "minKpssScore": null,
+          "qualificationCodes": ["2001", "7225", "7300"],
+          "details": "Sağlık Bakanlığı taşra teşkilatında istihdam edilmek üzere İŞKUR üzerinden noter kurası ile sürekli işçi alımı gerçekleştirilecektir.",
+          "status": "YESIL",
+          "matchScore": 92,
+          "matchReason": "KPSS şartsız sürekli işçi alımı; lise ve dengi okul mezunları başvurabilir.",
+          "isExpired": false
+        },
+        {
+          "id": "fb8eb81b669a503101e5a08a",
+          "sourceKey": "gsb",
+          "sourceName": "T.C. Gençlik ve Spor Bakanlığı",
+          "institution": "T.C. Gençlik ve Spor Bakanlığı",
+          "title": "Sözleşmeli Destek Personeli (Temizlik & Bakım) ve Güvenlik Görevlisi Alımı",
+          "url": "https://www.gsb.gov.tr/",
+          "city": "Ankara, İstanbul, İzmir ve Diğer İller",
+          "quota": 1250,
+          "deadline": "05.12.2026",
+          "educationLevel": "Ortaöğretim",
+          "kpssType": "P94",
+          "minKpssScore": 60,
+          "qualificationCodes": ["2001", "6506"],
+          "details": "Gençlik ve Spor Bakanlığı yurt müdürlükleri ve il müdürlüklerinde görevlendirilmek üzere B sınıfı ehliyetli ve lise mezunu personel istihdam edilecektir.",
+          "status": "YESIL",
+          "matchScore": 94,
+          "matchReason": "2001 (Ortaöğretim) ve B sınıfı ehliyet (6506) şartları tam uyumludur.",
+          "isExpired": false
+        },
+        {
+          "id": "9e67d12eb0def4a81382b252",
+          "sourceKey": "resmiGazete",
+          "sourceName": "T.C. Resmî Gazete",
+          "institution": "Çeşitli Üniversiteler ve Belediyeler",
+          "title": "4/B Sözleşmeli Büro Personeli ve Destek Elemanı Alım İlanları",
+          "url": "https://www.resmigazete.gov.tr/",
+          "city": "Muhtelif İller",
+          "quota": 450,
+          "deadline": "02.12.2026",
+          "educationLevel": "Ortaöğretim / Ön Lisans",
+          "kpssType": "P94 / P93",
+          "minKpssScore": 65,
+          "qualificationCodes": ["2001", "6225"],
+          "details": "Resmî Gazete'de yayımlanan üniversite ve belediye kadroları için başvuru şartları duyurulmuştur.",
+          "status": "SARI",
+          "matchScore": 70,
+          "matchReason": "Çoklu kadro içeren karma ilan; birim bazlı özel şartlar ve sertifikalar kontrol edilmelidir.",
+          "isExpired": false
+        },
+        {
+          "id": "978619bc8a7b010e41eae708",
+          "sourceKey": "osym",
+          "sourceName": "ÖSYM Başkanlığı",
+          "institution": "Ölçme, Seçme ve Yerleştirme Merkezi",
+          "title": "KPSS Bazı Kamu Kurum ve Kuruluşlarının Kadro ve Pozisyonlarına Tercih Kılavuzu",
+          "url": "https://www.osym.gov.tr/",
+          "city": "Türkiye Geneli",
+          "quota": null,
+          "deadline": "10.12.2026",
+          "educationLevel": "Ortaöğretim, Ön Lisans, Lisans",
+          "kpssType": "P94 / P93 / P3",
+          "minKpssScore": null,
+          "qualificationCodes": ["2001", "3001", "4001"],
+          "details": "Merkezi atama tercih kılavuzu yayımlanmıştır.",
+          "status": "YESIL",
+          "matchScore": 90,
+          "matchReason": "Merkezi atama tercih kılavuzunda Ortaöğretim 2001 kodlu kadrolar bulunmaktadır.",
+          "isExpired": false
+        },
+        {
+          "id": "3dadc7a77c44645d20686d75",
+          "sourceKey": "kamuIlan",
+          "sourceName": "Cumhurbaşkanlığı Kamu İlan",
+          "institution": "Hazine ve Maliye Bakanlığı",
+          "title": "Vergi Müfettiş Yardımcılığı ve Hazine Uzman Yardımcılığı Giriş Sınavı",
+          "url": "https://kamuilan.sbb.gov.tr/",
+          "city": "Ankara",
+          "quota": 150,
+          "deadline": "15.12.2026",
+          "educationLevel": "Lisans",
+          "kpssType": "P3 / KPSS A Grubu",
+          "minKpssScore": 80,
+          "qualificationCodes": ["4001"],
+          "details": "İktisat, İşletme ve Hukuk fakültelerinden mezun lisans mezunu adaylar arasından alım.",
+          "status": "KIRMIZI",
+          "matchScore": 10,
+          "matchReason": "Yalnızca 4 yıllık Lisans (İİBF/Hukuk) mezunlarına açık A Grubu kadrosudur.",
+          "isExpired": false
+        },
+        {
+          "id": "a849b710f08b3a788854e4f6",
+          "sourceKey": "resmiGazete",
+          "sourceName": "T.C. Resmî Gazete",
+          "institution": "Milli Savunma Bakanlığı",
+          "title": "Milli Savunma Üniversitesi Sözleşmeli Personel Temini",
+          "url": "https://www.resmigazete.gov.tr/",
+          "city": "İstanbul, Ankara",
+          "quota": 85,
+          "deadline": "15.10.2026",
+          "educationLevel": "Ortaöğretim",
+          "kpssType": "P94",
+          "minKpssScore": 60,
+          "qualificationCodes": ["2001"],
+          "details": "Başvuru süresi geçmiş arşiv ilanı.",
+          "status": "KIRMIZI",
+          "matchScore": 0,
+          "matchReason": "Son başvuru tarihi doldu (15.10.2026)",
+          "isExpired": true
+        }
+      ];
+
+      // Nitelik Kodları Sözlüğü
+      const QUAL_DICT = {
+        '2001': 'Ortaöğretim (Tüm Alanlar / Lise) mezunu olmak',
+        '2063': 'Adalet Alanı ve Dalları mezuniyeti',
+        '2087': 'Bilişim Teknolojileri Alanı mezuniyeti',
+        '3001': 'Herhangi bir önlisans programından mezun olmak',
+        '4001': 'Herhangi bir lisans programından mezun olmak',
+        '6225': 'M.E.B. Onaylı Bilgisayar İşletmeni Sertifikası sahibi olmak',
+        '6506': 'B Sınıfı Sürücü Belgesine sahip olmak',
+        '6510': 'C Sınıfı Sürücü Belgesine sahip olmak',
+        '6514': 'D Sınıfı Sürücü Belgesine sahip olmak',
+        '6518': 'E Sınıfı Sürücü Belgesine sahip olmak',
+        '7225': 'Güvenlik Soruşturması ve Arşiv Araştırması olumlu sonuçlanmak',
+        '7300': 'Bu kadroda vardiya sistemi uygulanmaktadır',
+        '7111': 'Özel Güvenlik Görevlisi Kimlik Kartı sahibi olmak',
+        '1101': 'Cinsiyeti erkek olmak',
+        '1103': 'Cinsiyeti kadın olmak'
+      };
+
+      // Durum Değişkenleri
+      let allPostings = [];
+      let currentFilter = 'all';
+      let favorites = JSON.parse(localStorage.getItem('atama_favorites') || '[]');
+
+      // DOM Elemanları
+      const searchInput = document.getElementById('search-input');
+      const clearSearchBtn = document.getElementById('clear-search');
+      const filterPills = document.querySelectorAll('.filter-pill');
+      const cardsContainer = document.getElementById('cards-container');
+      const emptyState = document.getElementById('empty-state');
+      const resultsCount = document.getElementById('results-count');
+      const resetFiltersBtn = document.getElementById('reset-filters');
+      const sourceSelect = document.getElementById('source-select');
+      const citySelect = document.getElementById('city-select');
+      const sortSelect = document.getElementById('sort-select');
+      const refreshFeedBtn = document.getElementById('refresh-feed');
+      const headerRefreshBtn = document.getElementById('header-refresh-btn');
+      const modal = document.getElementById('detail-modal');
+
+      // KPI Göstergeleri
+      const kpiTotal = document.getElementById('kpi-total');
+      const kpiGreen = document.getElementById('kpi-green');
+      const kpiYellow = document.getElementById('kpi-yellow');
+      const kpiRed = document.getElementById('kpi-red');
+      const headerTimestamp = document.getElementById('header-timestamp');
+      const pulseScanTime = document.getElementById('pulse-scan-time');
+
+      // Tab Sayaçları
+      const tabCountAll = document.getElementById('tab-count-all');
+      const tabCountGreen = document.getElementById('tab-count-green');
+      const tabCountYellow = document.getElementById('tab-count-yellow');
+      const tabCountRed = document.getElementById('tab-count-red');
+      const tabCountFav = document.getElementById('tab-count-fav');
+
+      // Kalan Gün Hesaplayıcı
+      function calculateRemaining(deadlineStr) {
+        if (!deadlineStr) return { text: 'Belirtilmedi', isUrgent: false, isExpired: false, badgeClass: 'bg-surface-container-highest text-on-surface-variant' };
+        const parts = deadlineStr.split('.');
+        if (parts.length !== 3) return { text: deadlineStr, isUrgent: false, isExpired: false, badgeClass: 'bg-surface-container-highest text-on-surface-variant' };
+
+        const deadline = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10), 23, 59, 59);
+        const now = new Date();
+        const diffMs = deadline.getTime() - now.getTime();
+        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 0) {
+          return { text: 'Süresi Doldu', isUrgent: false, isExpired: true, badgeClass: 'bg-error-container text-on-error-container font-bold' };
+        }
+        if (diffDays === 0) {
+          return { text: 'Bugün Son Gün!', isUrgent: true, isExpired: false, badgeClass: 'bg-error-container text-on-error-container font-bold flex items-center gap-1 animate-pulse' };
+        }
+        if (diffDays <= 3) {
+          return { text: `${diffDays} Gün Kaldı - Acil!`, isUrgent: true, isExpired: false, badgeClass: 'bg-error-container text-on-error-container font-bold flex items-center gap-1' };
+        }
+        return { text: `${diffDays} Gün Kaldı`, isUrgent: false, isExpired: false, badgeClass: 'bg-surface-container-highest text-secondary font-bold' };
       }
-    ];
 
-    let allPostings = [];
-    let currentStatusFilter = 'ALL';
-    let favorites = JSON.parse(localStorage.getItem('atama_favorites') || '[]');
-    let reviewed = JSON.parse(localStorage.getItem('atama_reviewed') || '[]');
-
-    // Nitelik Kodları Sözlüğü
-    const QUAL_DESC = {
-      '2001': 'Ortaöğretim (Tüm Alanlar / Lise)',
-      '3001': 'Herhangi bir önlisans programı mezuniyeti',
-      '4001': 'Herhangi bir lisans programı mezuniyeti',
-      '6225': 'MEB Onaylı Bilgisayar İşletmeni Sertifikası',
-      '6506': 'B Sınıfı Sürücü Belgesi',
-      '6510': 'C Sınıfı Sürücü Belgesi',
-      '6514': 'D Sınıfı Sürücü Belgesi',
-      '6518': 'E Sınıfı Sürücü Belgesi',
-      '7225': 'Güvenlik Soruşturması ve Arşiv Araştırması',
-      '7300': 'Vardiyalı Çalışma Sistemi',
-      '1101': 'Erkek Aday Şartı',
-      '1103': 'Kadın Aday Şartı'
-    };
-
-    // DOM Elemanları
-    const postingsContainer = document.getElementById('postingsContainer');
-    const emptyState = document.getElementById('emptyState');
-    const searchInput = document.getElementById('searchInput');
-    const clearSearchBtn = document.getElementById('clearSearchBtn');
-    const sourceFilter = document.getElementById('sourceFilter');
-    const sortFilter = document.getElementById('sortFilter');
-    const hideReviewedCheckbox = document.getElementById('hideReviewedCheckbox');
-    const statusTabs = document.querySelectorAll('.status-tab');
-    const detailModal = document.getElementById('detailModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const modalContent = document.getElementById('modalContent');
-    const refreshBtn = document.getElementById('refreshBtn');
-
-    // İstatistik Göstergeleri
-    const statTotal = document.getElementById('statTotal');
-    const statGreen = document.getElementById('statGreen');
-    const statYellow = document.getElementById('statYellow');
-    const statRed = document.getElementById('statRed');
-    const statFavorites = document.getElementById('statFavorites');
-    const lastScanText = document.getElementById('lastScanText');
-
-    // Verileri Yükle (Fetch ilanlar.json)
-    async function loadPostings() {
-      let loaded = false;
-      try {
-        const res = await fetch('./ilanlar.json', { cache: 'no-cache' });
-        if (res.ok) {
-          allPostings = await res.json();
-          loaded = true;
-        } else {
-          const resAlt = await fetch('./data/ilanlar.json', { cache: 'no-cache' });
-          if (resAlt.ok) {
-            allPostings = await resAlt.json();
+      // Verileri Yükleme Fonksiyonu
+      async function loadData() {
+        let loaded = false;
+        try {
+          const res = await fetch('./ilanlar.json', { cache: 'no-cache' });
+          if (res.ok) {
+            allPostings = await res.json();
             loaded = true;
+          } else {
+            const resAlt = await fetch('./data/ilanlar.json', { cache: 'no-cache' });
+            if (resAlt.ok) {
+              allPostings = await resAlt.json();
+              loaded = true;
+            }
           }
+        } catch (err) {
+          console.warn('Doğrudan fetch yapılamadı, dahili veriler yükleniyor:', err.message);
         }
-      } catch (err) {
-        console.warn('Doğrudan fetch yapılamadı (file:// veya ağ kısıtı):', err.message);
+
+        if (!loaded || !Array.isArray(allPostings) || allPostings.length === 0) {
+          allPostings = [...DEFAULT_EMBEDDED_POSTINGS];
+        }
+
+        // Tarama Raporunu Oku
+        try {
+          const repRes = await fetch('./scan-report.json', { cache: 'no-cache' });
+          if (repRes.ok) {
+            const rep = await repRes.json();
+            if (rep.lastScanAt) {
+              headerTimestamp.textContent = rep.lastScanAt;
+              pulseScanTime.textContent = rep.lastScanAt.slice(11, 16) + ' Tarandı';
+            }
+          }
+        } catch (e) {}
+
+        populateCityDropdown();
+        updateKpisAndTabs();
+        renderCards();
       }
 
-      if (!loaded || !Array.isArray(allPostings) || allPostings.length === 0) {
-        allPostings = [...DEFAULT_EMBEDDED_POSTINGS];
+      // Şehirleri Dropdown'a Dinamik Doldur
+      function populateCityDropdown() {
+        const cities = new Set();
+        allPostings.forEach(p => {
+          if (p.city && p.city !== 'Belirtilmemiş' && p.city !== 'Türkiye Geneli' && p.city !== 'Tüm İller' && p.city !== '81 İl Geneli') {
+            p.city.split(/[,/&]/).forEach(c => {
+              const clean = c.replace(/İli|Merkez|Taşra|ve|Diğer|Bölge/gi, '').trim();
+              if (clean.length > 2 && clean.length < 20) cities.add(clean);
+            });
+          }
+        });
+
+        // Mevcut seçenekleri koruyup şehirleri ekle
+        citySelect.innerHTML = '<option value="ALL">Tüm Şehirler</option>';
+        Array.from(cities).sort((a, b) => a.localeCompare(b, 'tr')).forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          citySelect.appendChild(opt);
+        });
       }
 
-      // Tarama raporunu yükle
-      try {
-        const repRes = await fetch('./scan-report.json', { cache: 'no-cache' });
-        if (repRes.ok) {
-          const rep = await repRes.json();
-          if (rep.lastScanAt) lastScanText.innerText = `Son Tarama: ${rep.lastScanAt}`;
-        }
-      } catch (e) {}
+      // KPI ve Tab Sayaçlarını Güncelle
+      function updateKpisAndTabs() {
+        const total = allPostings.length;
+        const green = allPostings.filter(p => p.status === 'YESIL').length;
+        const yellow = allPostings.filter(p => p.status === 'SARI').length;
+        const red = allPostings.filter(p => p.status === 'KIRMIZI').length;
+        const fav = favorites.length;
 
-      updateStats();
-      renderPostings();
-    }
+        kpiTotal.textContent = total;
+        kpiGreen.textContent = green;
+        kpiYellow.textContent = yellow;
+        kpiRed.textContent = red;
 
-    // İstatistikleri Güncelle
-    function updateStats() {
-      statTotal.innerText = allPostings.length;
-      statGreen.innerText = allPostings.filter(p => p.status === 'YESIL').length;
-      statYellow.innerText = allPostings.filter(p => p.status === 'SARI').length;
-      statRed.innerText = allPostings.filter(p => p.status === 'KIRMIZI').length;
-      statFavorites.innerText = favorites.length;
-    }
-
-    // Kalan Gün Hesaplama
-    function getRemainingDaysText(deadlineStr) {
-      if (!deadlineStr) return { text: 'Belirtilmedi', badgeClass: 'bg-slate-800 text-slate-400' };
-      const parts = deadlineStr.split('.');
-      if (parts.length !== 3) return { text: deadlineStr, badgeClass: 'bg-slate-800 text-slate-300' };
-
-      const deadline = new Date(parts[2], parseInt(parts[1], 10) - 1, parts[0], 23, 59, 59);
-      const now = new Date();
-      const diffMs = deadline.getTime() - now.getTime();
-      const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-
-      if (diffDays < 0) {
-        return { text: 'Süresi Doldu', badgeClass: 'bg-rose-500/20 text-rose-400 border border-rose-500/30' };
+        tabCountAll.textContent = `(${total})`;
+        tabCountGreen.textContent = `(${green})`;
+        tabCountYellow.textContent = `(${yellow})`;
+        tabCountRed.textContent = `(${red})`;
+        tabCountFav.textContent = `(${fav})`;
       }
-      if (diffDays === 0) {
-        return { text: '⚠️ Bugün Son Gün!', badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse' };
-      }
-      if (diffDays <= 3) {
-        return { text: `⏳ Son ${diffDays} Gün`, badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/30' };
-      }
-      return { text: `${diffDays} Gün Kaldı`, badgeClass: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' };
-    }
 
-    // İlanları Filtrele ve Sırala
-    function getFilteredPostings() {
-      const query = searchInput.value.trim().toLowerCase();
-      const source = sourceFilter.value;
-      const hideReviewed = hideReviewedCheckbox.checked;
+      // Kartları Dinamik Render Et
+      function renderCards() {
+        const query = (searchInput.value || '').trim().toLowerCase();
+        const selectedSource = sourceSelect.value;
+        const selectedCity = citySelect.value;
+        const selectedSort = sortSelect.value;
 
-      return allPostings.filter(posting => {
-        // Durum Filtresi
-        if (currentStatusFilter === 'FAVORITES') {
-          if (!favorites.includes(posting.id)) return false;
-        } else if (currentStatusFilter !== 'ALL') {
-          if (posting.status !== currentStatusFilter) return false;
+        // Filtrele
+        const filtered = allPostings.filter(p => {
+          const isFav = favorites.includes(p.id);
+
+          // Durum sekmesi filtresi
+          if (currentFilter === 'tam-uygun' && p.status !== 'YESIL') return false;
+          if (currentFilter === 'inceleme' && p.status !== 'SARI') return false;
+          if (currentFilter === 'uyumsuz' && p.status !== 'KIRMIZI') return false;
+          if (currentFilter === 'favoriler' && !isFav) return false;
+
+          // Kaynak filtresi
+          if (selectedSource !== 'ALL' && p.sourceKey !== selectedSource) return false;
+
+          // Şehir filtresi
+          if (selectedCity !== 'ALL') {
+            const cityText = (p.city || '').toLowerCase();
+            if (!cityText.includes(selectedCity.toLowerCase())) return false;
+          }
+
+          // Arama metni
+          if (query) {
+            const searchTarget = `${p.title} ${p.institution} ${p.city} ${p.details} ${(p.qualificationCodes || []).join(' ')}`.toLowerCase();
+            if (!searchTarget.includes(query)) return false;
+          }
+
+          return true;
+        });
+
+        // Sırala
+        filtered.sort((a, b) => {
+          if (selectedSort === 'PRIORITY') {
+            const weights = { 'YESIL': 3, 'SARI': 2, 'KIRMIZI': 1 };
+            return (weights[b.status] || 0) - (weights[a.status] || 0) || (b.matchScore || 0) - (a.matchScore || 0);
+          }
+          if (selectedSort === 'DEADLINE') {
+            return (a.deadline || '99.99.9999').localeCompare(b.deadline || '99.99.9999');
+          }
+          if (selectedSort === 'QUOTA') {
+            return (b.quota || 0) - (a.quota || 0);
+          }
+          return 0; // NEWEST
+        });
+
+        // HTML Çıktısı Üret
+        cardsContainer.innerHTML = '';
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove('hidden');
+          resultsCount.textContent = '0 İlan Bulundu';
+          return;
         }
 
-        // İncelenenleri Gizle
-        if (hideReviewed && reviewed.includes(posting.id)) {
-          return false;
-        }
+        emptyState.classList.add('hidden');
+        resultsCount.textContent = `${filtered.length} İlan Gösteriliyor`;
 
-        // Kaynak Filtresi
-        if (source !== 'ALL' && posting.sourceKey !== source) {
-          return false;
-        }
+        filtered.forEach(p => {
+          const isFav = favorites.includes(p.id);
+          const rem = calculateRemaining(p.deadline);
 
-        // Arama Metni
-        if (query) {
-          const matchTarget = `${posting.title} ${posting.institution} ${posting.city} ${posting.details} ${(posting.qualificationCodes || []).join(' ')}`.toLowerCase();
-          if (!matchTarget.includes(query)) return false;
-        }
+          // Durum Belirteçleri
+          let stripeColor = 'bg-secondary';
+          let statusBadgeClass = 'bg-secondary/15 text-secondary';
+          let statusText = 'TAM UYGUN';
+          let statusDot = 'bg-secondary';
+          let statusBoxBg = 'bg-secondary/10';
+          let statusBoxText = 'text-secondary';
+          let statusBoxIcon = 'check_circle';
+          let cardDataType = 'tam-uygun';
 
-        return true;
-      }).sort((a, b) => {
-        const sortType = sortFilter.value;
-        if (sortType === 'PRIORITY') {
-          const weights = { 'YESIL': 3, 'SARI': 2, 'KIRMIZI': 1 };
-          return (weights[b.status] || 0) - (weights[a.status] || 0) || (b.matchScore || 0) - (a.matchScore || 0);
-        }
-        if (sortType === 'QUOTA') {
-          return (b.quota || 0) - (a.quota || 0);
-        }
-        if (sortType === 'DEADLINE') {
-          return (a.deadline || '99.99.9999').localeCompare(b.deadline || '99.99.9999');
-        }
-        return 0;
-      });
-    }
+          if (p.status === 'SARI') {
+            stripeColor = 'bg-primary-container';
+            statusBadgeClass = 'bg-primary-container/20 text-primary-fixed-dim';
+            statusText = 'İNCELEME GEREKLİ';
+            statusDot = 'bg-primary-fixed-dim';
+            statusBoxBg = 'bg-primary-container/15';
+            statusBoxText = 'text-primary-fixed';
+            statusBoxIcon = 'notification_important';
+            cardDataType = 'inceleme';
+          } else if (p.status === 'KIRMIZI') {
+            stripeColor = 'bg-error';
+            statusBadgeClass = 'bg-error-container/30 text-error';
+            statusText = p.isExpired ? 'SÜRESİ GEÇTİ' : 'UYUMSUZ / ELENDİ';
+            statusDot = 'bg-error';
+            statusBoxBg = 'bg-error-container/15';
+            statusBoxText = 'text-error';
+            statusBoxIcon = 'event_busy';
+            cardDataType = 'uyumsuz';
+          }
 
-    // İlan Kartlarını Ekrana Bas (Render)
-    function renderPostings() {
-      const items = getFilteredPostings();
-      postingsContainer.innerHTML = '';
+          const card = document.createElement('article');
+          card.className = 'recruitment-card relative rounded-xl bg-surface-container overflow-hidden shadow-sm flex flex-col transition-all';
+          card.setAttribute('data-card-fav', String(isFav));
+          card.setAttribute('data-card-type', cardDataType);
 
-      if (items.length === 0) {
-        emptyState.classList.remove('hidden');
-        return;
-      }
-      emptyState.classList.add('hidden');
-
-      items.forEach(p => {
-        const isFav = favorites.includes(p.id);
-        const isRev = reviewed.includes(p.id);
-        const rem = getRemainingDaysText(p.deadline);
-
-        // Durum Renkleri
-        let statusBadge = '';
-        let borderClass = 'border-slate-800';
-
-        if (p.status === 'YESIL') {
-          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 badge-glow-green flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> TAM UYUMLU</span>';
-          borderClass = 'border-emerald-900/40 hover:border-emerald-600/60';
-        } else if (p.status === 'SARI') {
-          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 badge-glow-yellow flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> İNCELEME GEREKLİ</span>';
-          borderClass = 'border-amber-900/40 hover:border-amber-600/60';
-        } else {
-          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center gap-1"><i class="fa-solid fa-ban"></i> ELENDİ</span>';
-          borderClass = 'border-rose-950 hover:border-rose-900 opacity-75';
-        }
-
-        // Nitelik Kodları Rozetleri
-        const codesHtml = (p.qualificationCodes || []).map(code => {
-          return `<span class="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-medium" title="${QUAL_DESC[code] || 'Nitelik Kodu'}">${code}</span>`;
-        }).join(' ');
-
-        const card = document.createElement('div');
-        card.className = `bg-slate-900 border ${borderClass} rounded-2xl p-5 flex flex-col justify-between transition duration-200 relative group`;
-        if (isRev) {
-          card.classList.add('bg-slate-900/50');
-        }
-
-        card.innerHTML = `
-          <div>
-            <!-- Üst Bar: Durum Rozeti ve Favori Butonu -->
-            <div class="flex items-center justify-between gap-2 mb-3">
-              ${statusBadge}
-              <div class="flex items-center gap-1.5">
-                <button onclick="toggleReviewed('${p.id}')" class="p-1.5 rounded-lg text-xs ${isRev ? 'text-emerald-400 bg-emerald-500/10' : 'text-slate-500 hover:text-slate-300'} transition" title="${isRev ? 'İncelendi olarak işaretlendi' : 'İncelendi işaretle'}">
-                  <i class="fa-${isRev ? 'solid' : 'regular'} fa-eye"></i>
-                </button>
-                <button onclick="toggleFavorite('${p.id}')" class="p-1.5 rounded-lg text-xs ${isFav ? 'text-amber-400 bg-amber-500/10' : 'text-slate-500 hover:text-amber-400'} transition" title="Favorilere Ekle">
-                  <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
-                </button>
+          card.innerHTML = `
+            <!-- Sol Vurgu Çizgisi -->
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 ${stripeColor}"></div>
+            
+            <div class="p-space-md pl-5 flex flex-col gap-space-sm">
+              <!-- Üst Satır: Rozetler ve Favori Butonu -->
+              <div class="flex items-start justify-between gap-space-sm">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full ${statusBadgeClass} font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full ${statusDot}"></span>
+                    ${statusText}
+                  </span>
+                  ${p.status === 'YESIL' ? `
+                    <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-semibold">
+                      P94 UYUMLU
+                    </span>
+                  ` : ''}
+                  <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant">
+                    ${p.sourceName || 'Resmi Kaynak'}
+                  </span>
+                </div>
+                
+                <div class="flex items-center gap-1">
+                  <button aria-label="Favorilere Ekle" class="star-toggle w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center ${isFav ? 'text-amber-400' : 'text-outline hover:text-amber-400'} hover:bg-surface-container-highest transition-colors" type="button" data-id="${p.id}">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' ${isFav ? 1 : 0};">star</span>
+                  </button>
+                  <div class="w-9 h-9 rounded-lg ${p.status === 'YESIL' ? 'bg-secondary/20 text-secondary' : 'bg-surface-container-high text-outline'} flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">${p.status === 'YESIL' ? 'verified' : 'info'}</span>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <!-- Kurum ve Başlık -->
-            <div class="text-xs font-semibold text-emerald-400/90 tracking-wide uppercase mb-1">
-              ${p.institution || 'Kamu Kurumu'}
-            </div>
-            <h3 class="text-sm font-bold text-white line-clamp-2 mb-3 group-hover:text-emerald-300 transition">
-              ${p.title}
-            </h3>
-
-            <!-- Eşleşme Sebebi / Uygunluk Notu -->
-            ${p.matchReason ? `
-              <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 mb-3 text-xs text-slate-300 flex items-start gap-2">
-                <i class="fa-solid fa-lightbulb text-amber-400 mt-0.5 text-xs"></i>
-                <span class="line-clamp-2">${p.matchReason}</span>
+              <!-- Unvan ve Kurum -->
+              <div>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug">
+                  ${p.title}
+                </h2>
+                <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">${p.institution || 'Kamu Kurumu'}</p>
               </div>
-            ` : ''}
 
-            <!-- Nitelik Kodları -->
-            ${codesHtml ? `<div class="flex flex-wrap gap-1.5 mb-4">${codesHtml}</div>` : ''}
+              <!-- Meta Bilgi Kutusu -->
+              <div class="grid grid-cols-2 gap-space-xs p-space-xs rounded-lg bg-surface-container-low">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="material-symbols-outlined text-[16px] text-outline flex-shrink-0">grade</span>
+                  <span class="font-label-sm text-label-sm text-on-surface truncate">KPSS ${p.kpssType || 'P94'} ${p.minKpssScore ? `(Taban: ${p.minKpssScore})` : ''}</span>
+                </div>
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="material-symbols-outlined text-[16px] text-outline flex-shrink-0">school</span>
+                  <span class="font-label-sm text-label-sm text-on-surface truncate">${p.educationLevel || 'Ortaöğretim / Lise'}</span>
+                </div>
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="material-symbols-outlined text-[16px] text-outline flex-shrink-0">location_on</span>
+                  <span class="font-label-sm text-label-sm text-on-surface truncate">${p.city || 'Tüm İller'}</span>
+                </div>
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="material-symbols-outlined text-[16px] text-outline flex-shrink-0">group</span>
+                  <span class="font-label-sm text-label-sm text-on-surface truncate">Kontenjan: ${p.quota ? `${p.quota} Kişi` : 'Belirtilmedi'}</span>
+                </div>
+              </div>
 
-            <!-- Meta Bilgiler (Kontenjan, Şehir, Kalan Gün) -->
-            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 mb-4">
-              <div class="flex items-center gap-1.5">
-                <i class="fa-solid fa-users text-slate-500"></i>
-                <span>Kontenjan: <strong class="text-slate-200">${p.quota || 'Belirtilmedi'}</strong></span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i class="fa-solid fa-location-dot text-slate-500"></i>
-                <span class="truncate">${p.city || 'Tüm İller'}</span>
-              </div>
-              <div class="flex items-center gap-1.5 col-span-2">
-                <i class="fa-regular fa-clock text-slate-500"></i>
-                <span>Son Başvuru: <strong class="text-slate-200">${p.deadline || 'Belirtilmedi'}</strong></span>
-                <span class="ml-auto px-2 py-0.5 rounded text-[10px] font-semibold ${rem.badgeClass}">
+              <!-- Son Başvuru ve Geri Sayım -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px] text-outline">calendar_month</span>
+                  <span>Son Başvuru: ${p.deadline || 'Belirtilmedi'}</span>
+                </div>
+                <span class="font-label-sm text-label-sm px-2 py-0.5 rounded ${rem.badgeClass}">
+                  ${rem.isUrgent ? '<span class="material-symbols-outlined text-[13px]">alarm</span>' : ''}
                   ${rem.text}
                 </span>
               </div>
+
+              <!-- Uygunluk Notu Kutusu -->
+              <div class="p-space-sm rounded-lg ${statusBoxBg} flex items-start gap-space-xs">
+                <span class="material-symbols-outlined text-[18px] ${statusBoxText} flex-shrink-0 mt-0.5">${statusBoxIcon}</span>
+                <p class="font-body-sm text-body-sm ${statusBoxText} leading-snug">
+                  <strong>${p.status === 'YESIL' ? 'Profilinizle Uyumlu:' : (p.status === 'SARI' ? 'İnceleme Uyarısı:' : 'Durum:')}</strong>
+                  ${p.matchReason || 'Analiz notu mevcut değil.'}
+                </p>
+              </div>
+
+              <!-- Alt Aksiyon Butonları -->
+              <div class="grid grid-cols-2 gap-space-xs pt-1">
+                <button class="h-11 px-3 rounded-lg bg-surface-container-high hover:bg-surface-container-highest font-label-md text-label-md text-on-surface font-semibold flex items-center justify-center gap-1 transition-colors" type="button" onclick="window.viewPostingDetail('${p.id}')">
+                  <span class="material-symbols-outlined text-[18px]">visibility</span>
+                  <span>Detayları Gör</span>
+                </button>
+                <a class="h-11 px-3 rounded-lg bg-primary hover:bg-primary-container font-label-md text-label-md text-on-primary font-bold flex items-center justify-center gap-1 shadow-sm transition-colors text-center" href="${p.url || '#'}" target="_blank" rel="noopener noreferrer">
+                  <span>Resmî İlana Git</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              </div>
             </div>
-          </div>
+          `;
 
-          <!-- Aksiyon Butonları -->
-          <div class="flex items-center gap-2 pt-2 border-t border-slate-800">
-            <button onclick="openDetailModal('${p.id}')" class="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
-              <i class="fa-solid fa-circle-info"></i> Detaylar
-            </button>
-            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-600/20">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> İlana Git
-            </a>
-          </div>
-        `;
-        postingsContainer.appendChild(card);
-      });
-    }
+          // Favori Tıklama Olayı
+          const starBtn = card.querySelector('.star-toggle');
+          starBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(p.id);
+          });
 
-    // Favoriye Ekleme / Çıkarma
-    window.toggleFavorite = function(id) {
-      if (favorites.includes(id)) {
-        favorites = favorites.filter(f => f !== id);
-      } else {
-        favorites.push(id);
-      }
-      localStorage.setItem('atama_favorites', JSON.stringify(favorites));
-      updateStats();
-      renderPostings();
-    };
-
-    // İncelendi Olarak İşaretleme
-    window.toggleReviewed = function(id) {
-      if (reviewed.includes(id)) {
-        reviewed = reviewed.filter(r => r !== id);
-      } else {
-        reviewed.push(id);
-      }
-      localStorage.setItem('atama_reviewed', JSON.stringify(reviewed));
-      renderPostings();
-    };
-
-    // Detay Modalı Aç
-    window.openDetailModal = function(id) {
-      const p = allPostings.find(item => item.id === id);
-      if (!p) return;
-
-      const rem = getRemainingDaysText(p.deadline);
-      const codesList = (p.qualificationCodes || []).map(code => {
-        const desc = QUAL_DESC[code] || 'Özel nitelik şartı';
-        return `
-          <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-xs">
-            <span class="font-bold text-emerald-400 font-mono">${code}</span>
-            <span class="text-slate-300 ml-3 text-right">${desc}</span>
-          </div>
-        `;
-      }).join('');
-
-      modalContent.innerHTML = `
-        <div class="border-b border-slate-800 pb-4">
-          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">${p.institution || 'Kamu Kurumu'}</span>
-          <h2 class="text-lg font-bold text-white mt-1">${p.title}</h2>
-          <div class="flex items-center gap-2 mt-2">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${p.status === 'YESIL' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : (p.status === 'SARI' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30')}">
-              ${p.status === 'YESIL' ? '🟢 Tam Uyumlu' : (p.status === 'SARI' ? '🟡 İnceleme Gerekli' : '🔴 Elendi')}
-            </span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs ${rem.badgeClass}">${rem.text}</span>
-          </div>
-        </div>
-
-        <div class="space-y-3 text-xs">
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <div class="font-semibold text-slate-400 mb-1">Uygunluk Analiz Raporu:</div>
-            <div class="text-slate-200">${p.matchReason || 'Analiz verisi bulunamadı.'}</div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400">Kaynak:</span>
-              <div class="text-white font-medium mt-0.5">${p.sourceName || p.sourceKey}</div>
-            </div>
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400">Kontenjan:</span>
-              <div class="text-white font-medium mt-0.5">${p.quota || 'Belirtilmedi'}</div>
-            </div>
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400">Öğrenim Düzeyi:</span>
-              <div class="text-white font-medium mt-0.5">${p.educationLevel || 'Ortaöğretim / Lise'}</div>
-            </div>
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400">KPSS Şartı:</span>
-              <div class="text-white font-medium mt-0.5">${p.kpssType || 'P94'} ${p.minKpssScore ? `(Taban: ${p.minKpssScore})` : ''}</div>
-            </div>
-          </div>
-
-          ${codesList ? `
-            <div>
-              <div class="font-semibold text-slate-400 mb-2">Aranan Nitelik ve Şart Kodları:</div>
-              <div class="space-y-1.5">${codesList}</div>
-            </div>
-          ` : ''}
-
-          ${p.details ? `
-            <div>
-              <div class="font-semibold text-slate-400 mb-1">İlan Metni / Notlar:</div>
-              <p class="text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800 leading-relaxed max-h-36 overflow-y-auto">${p.details}</p>
-            </div>
-          ` : ''}
-        </div>
-
-        <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
-          <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
-            Kapat
-          </button>
-          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-emerald-600/30">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Resmi İlana Git
-          </a>
-        </div>
-      `;
-
-      detailModal.classList.remove('hidden');
-    };
-
-    function closeModal() {
-      detailModal.classList.add('hidden');
-    }
-
-    closeModalBtn.addEventListener('click', closeModal);
-    detailModal.addEventListener('click', (e) => {
-      if (e.target === detailModal) closeModal();
-    });
-
-    // Olay Dinleyicileri (Event Listeners)
-    statusTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        statusTabs.forEach(t => {
-          t.classList.remove('bg-emerald-600', 'text-white');
-          t.classList.add('bg-slate-800');
+          cardsContainer.appendChild(card);
         });
-        tab.classList.remove('bg-slate-800');
-        tab.classList.add('bg-emerald-600', 'text-white');
-        currentStatusFilter = tab.getAttribute('data-status');
-        renderPostings();
+      }
+
+      // Favori Ekle / Çıkar
+      function toggleFavorite(id) {
+        if (favorites.includes(id)) {
+          favorites = favorites.filter(f => f !== id);
+        } else {
+          favorites.push(id);
+        }
+        localStorage.setItem('atama_favorites', JSON.stringify(favorites));
+        updateKpisAndTabs();
+        renderCards();
+      }
+
+      // Detay Modalı Aç
+      window.viewPostingDetail = function(id) {
+        const p = allPostings.find(item => item.id === id);
+        if (!p) return;
+
+        document.getElementById('modal-title').textContent = p.title;
+        document.getElementById('modal-subtitle').textContent = p.institution || 'Kamu Kurumu';
+        document.getElementById('modal-score').textContent = `KPSS ${p.kpssType || 'P94'} ${p.minKpssScore ? `(Taban: ${p.minKpssScore})` : ''}`;
+        document.getElementById('modal-quota').textContent = p.quota ? `${p.quota} Kişi` : 'Belirtilmedi';
+        document.getElementById('modal-deadline').textContent = p.deadline ? `${p.deadline} - 23:59` : 'Belirtilmedi';
+        document.getElementById('modal-source-channel').textContent = p.sourceName || p.sourceKey;
+
+        // Uygunluk Kutusu
+        const matchBox = document.getElementById('modal-match-box');
+        const matchIcon = document.getElementById('modal-match-icon');
+        const matchReason = document.getElementById('modal-match-reason');
+
+        if (p.status === 'YESIL') {
+          matchBox.className = 'p-space-sm rounded-lg bg-secondary/10 flex items-start gap-space-xs';
+          matchIcon.className = 'material-symbols-outlined text-[18px] text-secondary flex-shrink-0 mt-0.5';
+          matchIcon.textContent = 'check_circle';
+          matchReason.className = 'font-body-sm text-body-sm text-secondary leading-snug';
+        } else if (p.status === 'SARI') {
+          matchBox.className = 'p-space-sm rounded-lg bg-primary-container/15 flex items-start gap-space-xs';
+          matchIcon.className = 'material-symbols-outlined text-[18px] text-primary-fixed-dim flex-shrink-0 mt-0.5';
+          matchIcon.textContent = 'notification_important';
+          matchReason.className = 'font-body-sm text-body-sm text-primary-fixed leading-snug';
+        } else {
+          matchBox.className = 'p-space-sm rounded-lg bg-error-container/20 flex items-start gap-space-xs';
+          matchIcon.className = 'material-symbols-outlined text-[18px] text-error flex-shrink-0 mt-0.5';
+          matchIcon.textContent = 'event_busy';
+          matchReason.className = 'font-body-sm text-body-sm text-error leading-snug';
+        }
+        matchReason.textContent = p.matchReason || 'Analiz notu mevcut değil.';
+
+        // Nitelik Kodları Listesi
+        const codesList = document.getElementById('modal-codes-list');
+        const codesCount = document.getElementById('modal-codes-count');
+        const codesContainer = document.getElementById('modal-codes-container');
+
+        const codes = p.qualificationCodes || [];
+        if (codes.length > 0) {
+          codesContainer.classList.remove('hidden');
+          codesCount.textContent = `${codes.length} Şart Analiz Edildi`;
+          codesList.innerHTML = codes.map(code => {
+            const desc = QUAL_DICT[code] || 'Özel nitelik koşulu';
+            const isMatch = code === '2001' || code === '6506' || code === '6225' || code === '7225' || code === '7300';
+            return `
+              <div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-xs">
+                <span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest text-primary font-bold">${code}</span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-body-sm text-body-sm text-on-surface font-medium">${desc}</p>
+                  <span class="font-label-sm text-label-sm ${isMatch ? 'text-secondary' : 'text-outline'} flex items-center gap-1 mt-0.5">
+                    <span class="material-symbols-outlined text-[13px]">${isMatch ? 'check' : 'info'}</span>
+                    ${isMatch ? 'Profilinizle Uyumlu' : 'Standart Kamu Şartı'}
+                  </span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          codesContainer.classList.add('hidden');
+        }
+
+        // Detay Metni
+        const detailsBox = document.getElementById('modal-details-box');
+        const detailsText = document.getElementById('modal-details-text');
+        if (p.details && p.details.trim().length > 0) {
+          detailsBox.classList.remove('hidden');
+          detailsText.textContent = p.details;
+        } else {
+          detailsBox.classList.add('hidden');
+        }
+
+        // Aksiyon Butonları
+        const applyBtn = document.getElementById('modal-apply-btn');
+        applyBtn.href = p.url || '#';
+
+        const copyBtn = document.getElementById('modal-copy-btn');
+        copyBtn.onclick = () => {
+          navigator.clipboard?.writeText(p.url || window.location.href);
+          alert('İlan bağlantısı panoya kopyalandı.');
+        };
+
+        const shareBtn = document.getElementById('modal-share-btn');
+        shareBtn.onclick = () => {
+          const shareUrl = encodeURIComponent(p.url || window.location.href);
+          const shareTitle = encodeURIComponent(`Kamu İlanı: ${p.title} (${p.institution})`);
+          window.open(`https://api.whatsapp.com/send?text=${shareTitle}%20${shareUrl}`, '_blank');
+        };
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeDetailModal = function() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      };
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) window.closeDetailModal();
       });
-    });
 
-    searchInput.addEventListener('input', () => {
-      clearSearchBtn.classList.toggle('hidden', !searchInput.value);
-      renderPostings();
-    });
+      // Tab Tıklamaları
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach(p => {
+            p.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+            p.classList.add('bg-surface-container', 'text-on-surface-variant');
+          });
+          pill.classList.remove('bg-surface-container', 'text-on-surface-variant');
+          pill.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
 
-    clearSearchBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      clearSearchBtn.classList.add('hidden');
-      renderPostings();
-    });
-
-    sourceFilter.addEventListener('change', renderPostings);
-    sortFilter.addEventListener('change', renderPostings);
-    hideReviewedCheckbox.addEventListener('change', renderPostings);
-
-    document.getElementById('resetFiltersBtn')?.addEventListener('click', () => {
-      searchInput.value = '';
-      clearSearchBtn.classList.add('hidden');
-      sourceFilter.value = 'ALL';
-      currentStatusFilter = 'ALL';
-      statusTabs[0].click();
-      renderPostings();
-    });
-
-    refreshBtn.addEventListener('click', () => {
-      refreshBtn.querySelector('i').classList.add('animate-spin');
-      loadPostings().finally(() => {
-        setTimeout(() => refreshBtn.querySelector('i').classList.remove('animate-spin'), 600);
+          currentFilter = pill.getAttribute('data-filter') || 'all';
+          renderCards();
+        });
       });
-    });
 
-    // Sayfa Yüklendiğinde Başlat
-    document.addEventListener('DOMContentLoaded', loadPostings);
+      // Arama Girişi
+      searchInput.addEventListener('input', () => {
+        clearSearchBtn.classList.toggle('hidden', !searchInput.value);
+        renderCards();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderCards();
+        searchInput.focus();
+      });
+
+      // Dropdown Olayları
+      sourceSelect.addEventListener('change', renderCards);
+      citySelect.addEventListener('change', renderCards);
+      sortSelect.addEventListener('change', renderCards);
+
+      // Filtre Sıfırla
+      resetFiltersBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        sourceSelect.value = 'ALL';
+        citySelect.value = 'ALL';
+        sortSelect.value = 'PRIORITY';
+        filterPills[0].click();
+      });
+
+      // Yenile Butonları
+      function triggerRefresh() {
+        const icon = refreshFeedBtn.querySelector('.material-symbols-outlined');
+        if (icon) icon.classList.add('animate-spin');
+        loadData().finally(() => {
+          setTimeout(() => {
+            if (icon) icon.classList.remove('animate-spin');
+          }, 600);
+        });
+      }
+
+      refreshFeedBtn.addEventListener('click', triggerRefresh);
+      headerRefreshBtn.addEventListener('click', triggerRefresh);
+
+      // Alt Gezinme Çubuğu Tıklamaları
+      document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const path = item.getAttribute('data-path');
+
+          document.querySelectorAll('.bottom-nav-item').forEach(nav => {
+            nav.classList.remove('text-primary', 'font-semibold');
+            nav.classList.add('text-on-surface-variant');
+          });
+          item.classList.add('text-primary', 'font-semibold');
+          item.classList.remove('text-on-surface-variant');
+
+          if (path === 'takip-listem') {
+            const favPill = document.querySelector('.filter-pill[data-filter="favoriler"]');
+            if (favPill) favPill.click();
+          } else if (path === 'uygunluk') {
+            const greenPill = document.querySelector('.filter-pill[data-filter="tam-uygun"]');
+            if (greenPill) greenPill.click();
+          } else if (path === 'ilanlar') {
+            const allPill = document.querySelector('.filter-pill[data-filter="all"]');
+            if (allPill) allPill.click();
+          }
+        });
+      });
+
+      // Uygulamayı Başlat
+      document.addEventListener('DOMContentLoaded', loadData);
+      loadData();
+    })();
   </script>
 </body>
 </html>
