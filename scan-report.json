@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "21.11.2026 01:37:15",
+  "lastScanAt": "21.11.2026 01:46:22",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -14,8 +14,8 @@
     "expired": 0
   },
   "notificationSummary": {
-    "sentCount": 12,
-    "skippedCount": 0,
+    "sentCount": 0,
+    "skippedCount": 12,
     "failCount": 0
   },
   "sources": {
