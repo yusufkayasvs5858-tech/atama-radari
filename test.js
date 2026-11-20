@@ -144,6 +144,45 @@ runTest('Ağır vasıta (C/D/E) ehliyet şartı olan ilan (Adayda sadece B varsa
   assert.strictEqual(result.status, 'KIRMIZI', 'Eksik ehliyet sınıfında KIRMIZI olmalı');
 });
 
+// 5. Kara Liste (Blacklist) Testleri
+console.log('\n🚫 5. Alakasız İlan Kara Listesi (Blacklist) Kontrolleri:');
+runTest('Engelli kontenjanı ilanı -> KIRMIZI olmalı', () => {
+  const posting = {
+    title: 'Sürekli İşçi (Engelli) Alım İlanı',
+    educationLevel: 'Ortaöğretim',
+    kpssType: 'P94',
+    deadline: '31.12.2028'
+  };
+  const result = classifyPosting(posting, DEFAULT_PROFILE);
+  assert.strictEqual(result.status, 'KIRMIZI', 'Engelli ilanı KIRMIZI olmalı');
+  assert.strictEqual(result.matchScore, 0);
+  assert(result.matchReason.toLowerCase().includes('kara liste'));
+});
+
+runTest('Eski Hükümlü ilanı -> KIRMIZI olmalı', () => {
+  const posting = {
+    title: 'Eski Hükümlü / TMY Temizlik Görevlisi Alımı',
+    educationLevel: 'Ortaöğretim',
+    kpssType: 'P94',
+    deadline: '31.12.2028'
+  };
+  const result = classifyPosting(posting, DEFAULT_PROFILE);
+  assert.strictEqual(result.status, 'KIRMIZI', 'Eski hükümlü ilanı KIRMIZI olmalı');
+  assert.strictEqual(result.matchScore, 0);
+});
+
+runTest('Kura duyurusu ilanı -> KIRMIZI olmalı', () => {
+  const posting = {
+    title: 'Sağlık Bakanlığı Personel Alımı Noter Kura Duyurusu',
+    educationLevel: 'Ortaöğretim',
+    kpssType: 'P94',
+    deadline: '31.12.2028'
+  };
+  const result = classifyPosting(posting, DEFAULT_PROFILE);
+  assert.strictEqual(result.status, 'KIRMIZI', 'Kura duyurusu ilanı KIRMIZI olmalı');
+  assert.strictEqual(result.matchScore, 0);
+});
+
 console.log('\n' + '='.repeat(65));
 console.log(`SONUÇ: ${passedTests} / ${totalTests} test başarıyla tamamlandı.`);
 console.log('='.repeat(65));

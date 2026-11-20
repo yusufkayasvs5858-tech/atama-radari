@@ -29,12 +29,25 @@ async function main() {
   const profile = loadUserProfile();
   console.log(`[PROFİL] Aktif Profil: ${profile.name} | Öğrenim: ${profile.educationLevel} | KPSS: ${profile.kpss.type} (${profile.kpss.score})`);
 
+  // Bilinen eski sahte/örnek seed ilan kimlikleri (Tamamen temizlenir)
+  const MOCK_SEED_IDS = new Set([
+    'e39bc4599fdd343a386e6d30',
+    '1cea8a3f1374342803b73839',
+    'fb8eb81b669a503101e5a08a',
+    '9e67d12eb0def4a81382b252',
+    '978619bc8a7b010e41eae708',
+    '3dadc7a77c44645d20686d75',
+    'a849b710f08b3a788854e4f6'
+  ]);
+
   // 2. Mevcut Veritabanını ve Bildirim Geçmişini Oku
   const existingPostingsList = readJsonSafe(ilanlarRootPath, readJsonSafe(ilanlarDataPath, []));
   const existingPostingsMap = new Map();
   if (Array.isArray(existingPostingsList)) {
     for (const p of existingPostingsList) {
-      if (p.id) existingPostingsMap.set(p.id, p);
+      if (p.id && !MOCK_SEED_IDS.has(p.id)) {
+        existingPostingsMap.set(p.id, p);
+      }
     }
   }
 
@@ -46,8 +59,9 @@ async function main() {
   // 4. İlanları Değerlendir ve Eşle
   const currentBatchMap = new Map();
 
-  // Yeni kazınanları sınıflandır
+  // Yeni kazınanları sınıflandır (Sahte seed'ler elenir)
   for (const item of newScrapedItems) {
+    if (MOCK_SEED_IDS.has(item.id)) continue;
     const classification = classifyPosting(item, profile);
     const merged = {
       ...item,
@@ -58,17 +72,15 @@ async function main() {
     currentBatchMap.set(item.id, merged);
   }
 
-  // Önceki taramalarda bulunan ancak şu an süresi devam eden ilanları koru (Geçici ağ hatalarında ilan silinmesin)
+  // Önceki taramalarda bulunan gerçek ilanları koru ve yeniden değerlendir (Kara liste veya süre dolumu için)
   for (const [id, oldItem] of existingPostingsMap.entries()) {
     if (!currentBatchMap.has(id)) {
-      // Süresi dolmuş mu tekrar kontrol et
-      if (oldItem.deadline && isDateExpired(oldItem.deadline)) {
-        oldItem.status = 'KIRMIZI';
-        oldItem.isExpired = true;
-        oldItem.matchScore = 0;
-        oldItem.matchReason = `Son başvuru tarihi doldu (${oldItem.deadline})`;
-      }
-      currentBatchMap.set(id, oldItem);
+      const updatedClass = classifyPosting(oldItem, profile);
+      const rechecked = {
+        ...oldItem,
+        ...updatedClass
+      };
+      currentBatchMap.set(id, rechecked);
     }
   }
 
