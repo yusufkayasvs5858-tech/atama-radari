@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "21.11.2026 00:59:14",
+  "lastScanAt": "21.11.2026 01:22:46",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -7,73 +7,73 @@
     "kpssScore": 75
   },
   "statistics": {
-    "total": 7,
-    "green": 4,
-    "yellow": 1,
+    "total": 19,
+    "green": 6,
+    "yellow": 11,
     "red": 2,
     "expired": 1
   },
   "notificationSummary": {
-    "sentCount": 0,
+    "sentCount": 17,
     "skippedCount": 0,
-    "failCount": 5
+    "failCount": 0
   },
   "sources": {
     "resmiGazete": {
       "name": "T.C. Resmî Gazete",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Hata: fetch failed"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 2,
+      "note": "2 adet Resmî Gazete ilanı tarandı"
     },
     "kamuIlan": {
       "name": "Cumhurbaşkanlığı Kamu İlan",
       "ok": false,
       "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Hata: fetch failed"
+      "note": "Erişim Hatası (HTTP 403)"
     },
     "osym": {
       "name": "ÖSYM Başkanlığı",
       "ok": false,
       "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Hata: fetch failed"
+      "note": "Erişim Hatası (HTTP 404)"
     },
     "saglikBakanligi": {
       "name": "T.C. Sağlık Bakanlığı (YHGM)",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Hata: fetch failed"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 8,
+      "note": "8 adet Sağlık Bakanlığı duyurusu tarandı"
     },
     "adaletBakanligi": {
       "name": "T.C. Adalet Bakanlığı (PGM)",
-      "ok": false,
-      "state": "TEMP_ERROR",
+      "ok": true,
+      "state": "SUCCESS",
       "count": 0,
-      "note": "Hata: fetch failed"
+      "note": "0 adet Adalet Bakanlığı duyurusu tarandı"
     },
     "gsb": {
       "name": "T.C. Gençlik ve Spor Bakanlığı",
       "ok": false,
       "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Hata: fetch failed"
+      "note": "Hata: Zaman aşımı (Timeout)"
     },
     "iskur": {
       "name": "T.C. İŞKUR (Kamu Alımları)",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Geçici Hata: fetch failed"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 2,
+      "note": "2 adet İŞKUR kamu duyurusu bulundu"
     },
     "kariyerKapisi": {
       "name": "CBİKO Kariyer Kapısı",
-      "ok": false,
-      "state": "TEMP_ERROR",
+      "ok": true,
+      "state": "REACHABLE_NO_SCRAPE",
       "count": 0,
-      "note": "Geçici Hata: fetch failed"
+      "note": "Erişilebilir (HTTP 200) — İstemci SPA arayüzü nedeniyle ana sayfa izleniyor"
     }
   }
 }
