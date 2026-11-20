@@ -1,0 +1,79 @@
+{
+  "lastScanAt": "21.11.2026 00:59:14",
+  "profileUsed": {
+    "name": "Ortaöğretim KPSS P94 Adayı",
+    "educationLevel": "Ortaöğretim",
+    "kpssType": "P94",
+    "kpssScore": 75
+  },
+  "statistics": {
+    "total": 7,
+    "green": 4,
+    "yellow": 1,
+    "red": 2,
+    "expired": 1
+  },
+  "notificationSummary": {
+    "sentCount": 0,
+    "skippedCount": 0,
+    "failCount": 5
+  },
+  "sources": {
+    "resmiGazete": {
+      "name": "T.C. Resmî Gazete",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "kamuIlan": {
+      "name": "Cumhurbaşkanlığı Kamu İlan",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "osym": {
+      "name": "ÖSYM Başkanlığı",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "saglikBakanligi": {
+      "name": "T.C. Sağlık Bakanlığı (YHGM)",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "adaletBakanligi": {
+      "name": "T.C. Adalet Bakanlığı (PGM)",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "gsb": {
+      "name": "T.C. Gençlik ve Spor Bakanlığı",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: fetch failed"
+    },
+    "iskur": {
+      "name": "T.C. İŞKUR (Kamu Alımları)",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Geçici Hata: fetch failed"
+    },
+    "kariyerKapisi": {
+      "name": "CBİKO Kariyer Kapısı",
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Geçici Hata: fetch failed"
+    }
+  }
+}

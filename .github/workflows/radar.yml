@@ -1,0 +1,63 @@
+name: Atama Radari Otomatik Tarama
+
+on:
+  schedule:
+    # Türkiye Saati (UTC+3) ile Günde 3 Kez: 08:00, 13:00 ve 19:00
+    - cron: '0 5,10,16 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - 'README.md'
+      - 'index.html'
+
+concurrency:
+  group: atama-radari-scan
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  tarama:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu Cek
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node.js 22 Kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Bagimliliklari Yukle
+        run: npm install --no-audit --no-fund
+
+      - name: Otomatik Dogrulama ve Birim Testleri
+        run: npm test
+
+      - name: Resmi Kaynaklari Tara, Degerlendir ve Bildir
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          USER_PROFILE_JSON: ${{ secrets.USER_PROFILE_JSON }}
+        run: node scraper.js
+
+      - name: Veritabani ve Raporlari Atomik Kaydet
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Atama Radari Bot"
+          git add ilanlar.json notified.json scan-report.json data/
+          if git diff --staged --quiet; then
+            echo "Kaydedilecek yeni degisiklik bulunmuyor."
+          else
+            git commit -m "Otomatik kamu ilani tarama ve analiz guncellemesi [skip ci]"
+            git push
+          fi

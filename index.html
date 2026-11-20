@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atama Radarı | KPSS P94 ve Kamu Personeli Takip Sistemi</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            radar: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              dark: '#0f172a',
+              card: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .badge-glow-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.35); }
+    .badge-glow-yellow { box-shadow: 0 0 15px rgba(234, 179, 8, 0.35); }
+    .badge-glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.35); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Üst Menü / Navbar -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-radar text-lg animate-pulse"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            ATAMA RADARI
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">v2.1 Canlı</span>
+          </h1>
+          <p class="text-xs text-slate-400">KPSS P94 • Ortaöğretim • Kamu Personel Alım Takibi</p>
+        </div>
+      </div>
+
+      <!-- Aday Profil Rozeti -->
+      <div class="hidden md:flex items-center gap-3 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 text-xs text-slate-300">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+          <i class="fa-solid fa-id-card"></i> Aktif Profil:
+        </span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">Ortaöğretim</span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">P94 (75 Puan)</span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">B Ehliyet</span>
+        <span class="bg-slate-700 px-2 py-0.5 rounded text-white font-semibold">2001 / 6506</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="refreshBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">Yenile</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ana İçerik -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-6">
+
+    <!-- İstatistik Kartları -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <!-- Toplam İlan -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium">
+          <span>Toplam İlan</span>
+          <i class="fa-solid fa-layer-group text-slate-500"></i>
+        </div>
+        <div class="text-2xl font-bold text-white mt-2" id="statTotal">0</div>
+        <div class="text-[11px] text-slate-400 mt-1">Aktif taranan havuz</div>
+      </div>
+
+      <!-- Yeşil İlan -->
+      <div class="bg-slate-900 border border-emerald-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-emerald-600/50 transition">
+        <div class="flex items-center justify-between text-emerald-400 text-xs font-medium">
+          <span>Tam Uyumlu</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+        </div>
+        <div class="text-2xl font-bold text-emerald-400 mt-2" id="statGreen">0</div>
+        <div class="text-[11px] text-emerald-500/80 mt-1">Hemen başvurulabilir</div>
+      </div>
+
+      <!-- Sarı İlan -->
+      <div class="bg-slate-900 border border-amber-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-amber-600/50 transition">
+        <div class="flex items-center justify-between text-amber-400 text-xs font-medium">
+          <span>İnceleme Gerekli</span>
+          <i class="fa-solid fa-triangle-exclamation text-amber-500"></i>
+        </div>
+        <div class="text-2xl font-bold text-amber-400 mt-2" id="statYellow">0</div>
+        <div class="text-[11px] text-amber-500/80 mt-1">Özel şartları kontrol et</div>
+      </div>
+
+      <!-- Kırmızı İlan -->
+      <div class="bg-slate-900 border border-rose-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-rose-600/50 transition">
+        <div class="flex items-center justify-between text-rose-400 text-xs font-medium">
+          <span>Elenen / Geçmiş</span>
+          <i class="fa-solid fa-ban text-rose-500"></i>
+        </div>
+        <div class="text-2xl font-bold text-rose-400 mt-2" id="statRed">0</div>
+        <div class="text-[11px] text-rose-500/80 mt-1">Profil dışı veya süresi biten</div>
+      </div>
+
+      <!-- Favoriler -->
+      <div class="col-span-2 md:col-span-1 bg-slate-900 border border-indigo-900/40 rounded-xl p-4 flex flex-col justify-between hover:border-indigo-600/50 transition">
+        <div class="flex items-center justify-between text-indigo-400 text-xs font-medium">
+          <span>Favorilerim</span>
+          <i class="fa-solid fa-star text-indigo-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-indigo-400 mt-2" id="statFavorites">0</div>
+        <div class="text-[11px] text-indigo-400/80 mt-1">Yıldıza eklenenler</div>
+      </div>
+    </section>
+
+    <!-- Filtreleme ve Arama Çubuğu -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+      <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+        <!-- Arama Kutusu -->
+        <div class="relative w-full md:w-96">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input type="text" id="searchInput" placeholder="Unvan, Kurum, Şehir veya Nitelik Kodu ara..." class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-950 border border-slate-700/80 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
+          <button id="clearSearchBtn" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Açılır Kutu Filtreleri (Kaynak, Şehir, Sıralama) -->
+        <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+          <!-- Kaynak -->
+          <select id="sourceFilter" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-700/80 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+            <option value="ALL">Tüm Kaynaklar</option>
+            <option value="resmiGazete">Resmî Gazete</option>
+            <option value="kamuIlan">Kamu İlan (SBB)</option>
+            <option value="saglikBakanligi">Sağlık Bakanlığı</option>
+            <option value="adaletBakanligi">Adalet Bakanlığı</option>
+            <option value="gsb">Gençlik ve Spor Bak.</option>
+            <option value="osym">ÖSYM</option>
+            <option value="iskur">İŞKUR</option>
+          </select>
+
+          <!-- Sıralama -->
+          <select id="sortFilter" class="px-3 py-2 rounded-xl bg-slate-950 border border-slate-700/80 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+            <option value="PRIORITY">Sırala: Uygunluk (Önce Yeşil)</option>
+            <option value="DEADLINE">Sırala: Son Başvuru (En Yakın)</option>
+            <option value="QUOTA">Sırala: Kontenjan (Çoktan Aza)</option>
+            <option value="NEWEST">Sırala: Eklenme Tarihi</option>
+          </select>
+
+          <!-- İncelenenleri Gizle Toggle -->
+          <label class="flex items-center gap-2 cursor-pointer bg-slate-950 px-3 py-2 rounded-xl border border-slate-700/80 text-xs text-slate-300 select-none hover:border-slate-600 transition">
+            <input type="checkbox" id="hideReviewedCheckbox" class="rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+            <span>İncelenenleri Gizle</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Durum Sekmeleri (Tabs) -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-2 border-t border-slate-800/80 text-xs scrollbar-none">
+        <button data-status="ALL" class="status-tab active-tab px-4 py-2 rounded-lg font-semibold bg-emerald-600 text-white transition flex items-center gap-1.5">
+          <i class="fa-solid fa-list-ul"></i> Tümü
+        </button>
+        <button data-status="YESIL" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 🟢 Tam Uyumlu
+        </button>
+        <button data-status="SARI" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-500"></span> 🟡 İnceleme Gerekli
+        </button>
+        <button data-status="KIRMIZI" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-rose-400 border border-rose-500/30 transition flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-rose-500"></span> 🔴 Elenen / Geçmiş
+        </button>
+        <button data-status="FAVORITES" class="status-tab px-4 py-2 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-indigo-500/30 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-star"></i> Favorilerim
+        </button>
+      </div>
+    </section>
+
+    <!-- İlan Kartları Listesi -->
+    <section id="postingsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Dinamik olarak JS ile doldurulacak -->
+    </section>
+
+    <!-- Boş Durum (Empty State) -->
+    <div id="emptyState" class="hidden text-center py-16 bg-slate-900/60 rounded-2xl border border-slate-800">
+      <div class="w-16 h-16 mx-auto rounded-full bg-slate-800 flex items-center justify-center text-slate-500 text-2xl mb-3">
+        <i class="fa-solid fa-filter-circle-xmark"></i>
+      </div>
+      <h3 class="text-base font-semibold text-white">Filtrelere Uygun İlan Bulunamadı</h3>
+      <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Arama terimini değiştirebilir veya filtreleri temizleyerek tüm ilanları listeleyebilirsiniz.</p>
+      <button id="resetFiltersBtn" class="mt-4 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition">
+        Filtreleri Temizle
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Detay Modalı (Modal) -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 relative">
+      <button id="closeModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div id="modalContent" class="space-y-4">
+        <!-- JS ile doldurulacak -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Alt Bilgi / Footer -->
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <span class="font-semibold text-slate-400">Atama Radarı v2.1</span> — Kişisel Kamu Personel Alım & Uygunluk Analiz Otomasyonu
+      </div>
+      <div class="flex items-center gap-4">
+        <span id="lastScanText">Son Tarama: Yükleniyor...</span>
+        <span>•</span>
+        <a href="https://github.com" target="_blank" class="hover:text-emerald-400 transition">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Ön Yüz Mantığı (JavaScript) -->
+  <script>
+    // Başlangıç verisi (Yerel JSON erişilemezse veya file:// protokolünde açılırsa yedek olarak devreye girer)
+    const DEFAULT_EMBEDDED_POSTINGS = [
+      {
+        "id": "e39bc4599fdd343a386e6d30",
+        "sourceKey": "adaletBakanligi",
+        "sourceName": "T.C. Adalet Bakanlığı (PGM)",
+        "institution": "T.C. Adalet Bakanlığı",
+        "title": "Sözleşmeli Zabıt Kâtibi, Mübaşir ve İnfaz Koruma Memuru (İKM) Alımı",
+        "url": "https://pgm.adalet.gov.tr/",
+        "city": "81 İl Geneli",
+        "quota": 3500,
+        "deadline": "28.11.2026",
+        "educationLevel": "Ortaöğretim",
+        "kpssType": "P94",
+        "minKpssScore": 70,
+        "qualificationCodes": ["2001", "6225", "7225"],
+        "details": "Adalet Bakanlığı taşra teşkilatına en az lise mezunu 2001 ve 6225 MEB Onaylı Bilgisayar İşletmeni sertifikalı sözleşmeli personel alımı yapılacaktır.",
+        "status": "YESIL",
+        "matchScore": 95,
+        "matchReason": "2001 (Ortaöğretim) ve KPSS P94 şartı adayın profili ile %100 uyumludur.",
+        "isExpired": false
+      },
+      {
+        "id": "1cea8a3f1374342803b73839",
+        "sourceKey": "saglikBakanligi",
+        "sourceName": "T.C. Sağlık Bakanlığı (YHGM)",
+        "institution": "T.C. Sağlık Bakanlığı",
+        "title": "Sürekli İşçi (Temizlik, Güvenlik, Klinik Destek) Alımı Kura Duyurusu",
+        "url": "https://yhgm.saglik.gov.tr/",
+        "city": "Türkiye Geneli",
+        "quota": 8000,
+        "deadline": "30.11.2026",
+        "educationLevel": "Ortaöğretim",
+        "kpssType": "KPSS Şartsız / Kura",
+        "minKpssScore": null,
+        "qualificationCodes": ["2001", "7225", "7300"],
+        "details": "Sağlık Bakanlığı taşra teşkilatında istihdam edilmek üzere İŞKUR üzerinden noter kurası ile sürekli işçi alımı gerçekleştirilecektir.",
+        "status": "YESIL",
+        "matchScore": 92,
+        "matchReason": "KPSS şartsız sürekli işçi alımı; lise ve dengi okul mezunları başvurabilir.",
+        "isExpired": false
+      },
+      {
+        "id": "fb8eb81b669a503101e5a08a",
+        "sourceKey": "gsb",
+        "sourceName": "T.C. Gençlik ve Spor Bakanlığı",
+        "institution": "T.C. Gençlik ve Spor Bakanlığı",
+        "title": "Sözleşmeli Destek Personeli (Temizlik & Bakım) ve Güvenlik Görevlisi Alımı",
+        "url": "https://www.gsb.gov.tr/",
+        "city": "Ankara, İstanbul, İzmir ve Diğer İller",
+        "quota": 1250,
+        "deadline": "05.12.2026",
+        "educationLevel": "Ortaöğretim",
+        "kpssType": "P94",
+        "minKpssScore": 60,
+        "qualificationCodes": ["2001", "6506"],
+        "details": "Gençlik ve Spor Bakanlığı yurt ve il müdürlüklerinde B sınıfı ehliyetli ve lise mezunu personel istihdam edilecektir.",
+        "status": "YESIL",
+        "matchScore": 94,
+        "matchReason": "2001 (Ortaöğretim) ve B sınıfı ehliyet (6506) şartları tam uyumludur.",
+        "isExpired": false
+      },
+      {
+        "id": "9e67d12eb0def4a81382b252",
+        "sourceKey": "resmiGazete",
+        "sourceName": "T.C. Resmî Gazete",
+        "institution": "Çeşitli Üniversiteler ve Belediyeler",
+        "title": "4/B Sözleşmeli Büro Personeli ve Destek Elemanı Alım İlanları",
+        "url": "https://www.resmigazete.gov.tr/",
+        "city": "Muhtelif İller",
+        "quota": 450,
+        "deadline": "02.12.2026",
+        "educationLevel": "Ortaöğretim / Ön Lisans",
+        "kpssType": "P94 / P93",
+        "minKpssScore": 65,
+        "qualificationCodes": ["2001", "6225"],
+        "details": "Resmî Gazete'de yayımlanan üniversite ve belediye kadroları.",
+        "status": "SARI",
+        "matchScore": 70,
+        "matchReason": "Çoklu kadro içeren karma ilan; birim bazlı özel şartlar ve sertifikalar kontrol edilmelidir.",
+        "isExpired": false
+      },
+      {
+        "id": "3dadc7a77c44645d20686d75",
+        "sourceKey": "kamuIlan",
+        "sourceName": "Cumhurbaşkanlığı Kamu İlan",
+        "institution": "Hazine ve Maliye Bakanlığı",
+        "title": "Vergi Müfettiş Yardımcılığı Giriş Sınavı",
+        "url": "https://kamuilan.sbb.gov.tr/",
+        "city": "Ankara",
+        "quota": 150,
+        "deadline": "15.12.2026",
+        "educationLevel": "Lisans",
+        "kpssType": "P3",
+        "minKpssScore": 80,
+        "qualificationCodes": ["4001"],
+        "details": "Yalnızca 4 yıllık Lisans mezunlarına açık A Grubu kadrosudur.",
+        "status": "KIRMIZI",
+        "matchScore": 10,
+        "matchReason": "Yalnızca 4 yıllık Lisans mezunlarına açık A Grubu kadrosudur.",
+        "isExpired": false
+      }
+    ];
+
+    let allPostings = [];
+    let currentStatusFilter = 'ALL';
+    let favorites = JSON.parse(localStorage.getItem('atama_favorites') || '[]');
+    let reviewed = JSON.parse(localStorage.getItem('atama_reviewed') || '[]');
+
+    // Nitelik Kodları Sözlüğü
+    const QUAL_DESC = {
+      '2001': 'Ortaöğretim (Tüm Alanlar / Lise)',
+      '3001': 'Herhangi bir önlisans programı mezuniyeti',
+      '4001': 'Herhangi bir lisans programı mezuniyeti',
+      '6225': 'MEB Onaylı Bilgisayar İşletmeni Sertifikası',
+      '6506': 'B Sınıfı Sürücü Belgesi',
+      '6510': 'C Sınıfı Sürücü Belgesi',
+      '6514': 'D Sınıfı Sürücü Belgesi',
+      '6518': 'E Sınıfı Sürücü Belgesi',
+      '7225': 'Güvenlik Soruşturması ve Arşiv Araştırması',
+      '7300': 'Vardiyalı Çalışma Sistemi',
+      '1101': 'Erkek Aday Şartı',
+      '1103': 'Kadın Aday Şartı'
+    };
+
+    // DOM Elemanları
+    const postingsContainer = document.getElementById('postingsContainer');
+    const emptyState = document.getElementById('emptyState');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const sourceFilter = document.getElementById('sourceFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    const hideReviewedCheckbox = document.getElementById('hideReviewedCheckbox');
+    const statusTabs = document.querySelectorAll('.status-tab');
+    const detailModal = document.getElementById('detailModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalContent = document.getElementById('modalContent');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    // İstatistik Göstergeleri
+    const statTotal = document.getElementById('statTotal');
+    const statGreen = document.getElementById('statGreen');
+    const statYellow = document.getElementById('statYellow');
+    const statRed = document.getElementById('statRed');
+    const statFavorites = document.getElementById('statFavorites');
+    const lastScanText = document.getElementById('lastScanText');
+
+    // Verileri Yükle (Fetch ilanlar.json)
+    async function loadPostings() {
+      let loaded = false;
+      try {
+        const res = await fetch('./ilanlar.json', { cache: 'no-cache' });
+        if (res.ok) {
+          allPostings = await res.json();
+          loaded = true;
+        } else {
+          const resAlt = await fetch('./data/ilanlar.json', { cache: 'no-cache' });
+          if (resAlt.ok) {
+            allPostings = await resAlt.json();
+            loaded = true;
+          }
+        }
+      } catch (err) {
+        console.warn('Doğrudan fetch yapılamadı (file:// veya ağ kısıtı):', err.message);
+      }
+
+      if (!loaded || !Array.isArray(allPostings) || allPostings.length === 0) {
+        allPostings = [...DEFAULT_EMBEDDED_POSTINGS];
+      }
+
+      // Tarama raporunu yükle
+      try {
+        const repRes = await fetch('./scan-report.json', { cache: 'no-cache' });
+        if (repRes.ok) {
+          const rep = await repRes.json();
+          if (rep.lastScanAt) lastScanText.innerText = `Son Tarama: ${rep.lastScanAt}`;
+        }
+      } catch (e) {}
+
+      updateStats();
+      renderPostings();
+    }
+
+    // İstatistikleri Güncelle
+    function updateStats() {
+      statTotal.innerText = allPostings.length;
+      statGreen.innerText = allPostings.filter(p => p.status === 'YESIL').length;
+      statYellow.innerText = allPostings.filter(p => p.status === 'SARI').length;
+      statRed.innerText = allPostings.filter(p => p.status === 'KIRMIZI').length;
+      statFavorites.innerText = favorites.length;
+    }
+
+    // Kalan Gün Hesaplama
+    function getRemainingDaysText(deadlineStr) {
+      if (!deadlineStr) return { text: 'Belirtilmedi', badgeClass: 'bg-slate-800 text-slate-400' };
+      const parts = deadlineStr.split('.');
+      if (parts.length !== 3) return { text: deadlineStr, badgeClass: 'bg-slate-800 text-slate-300' };
+
+      const deadline = new Date(parts[2], parseInt(parts[1], 10) - 1, parts[0], 23, 59, 59);
+      const now = new Date();
+      const diffMs = deadline.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffDays < 0) {
+        return { text: 'Süresi Doldu', badgeClass: 'bg-rose-500/20 text-rose-400 border border-rose-500/30' };
+      }
+      if (diffDays === 0) {
+        return { text: '⚠️ Bugün Son Gün!', badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse' };
+      }
+      if (diffDays <= 3) {
+        return { text: `⏳ Son ${diffDays} Gün`, badgeClass: 'bg-amber-500/20 text-amber-300 border border-amber-500/30' };
+      }
+      return { text: `${diffDays} Gün Kaldı`, badgeClass: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' };
+    }
+
+    // İlanları Filtrele ve Sırala
+    function getFilteredPostings() {
+      const query = searchInput.value.trim().toLowerCase();
+      const source = sourceFilter.value;
+      const hideReviewed = hideReviewedCheckbox.checked;
+
+      return allPostings.filter(posting => {
+        // Durum Filtresi
+        if (currentStatusFilter === 'FAVORITES') {
+          if (!favorites.includes(posting.id)) return false;
+        } else if (currentStatusFilter !== 'ALL') {
+          if (posting.status !== currentStatusFilter) return false;
+        }
+
+        // İncelenenleri Gizle
+        if (hideReviewed && reviewed.includes(posting.id)) {
+          return false;
+        }
+
+        // Kaynak Filtresi
+        if (source !== 'ALL' && posting.sourceKey !== source) {
+          return false;
+        }
+
+        // Arama Metni
+        if (query) {
+          const matchTarget = `${posting.title} ${posting.institution} ${posting.city} ${posting.details} ${(posting.qualificationCodes || []).join(' ')}`.toLowerCase();
+          if (!matchTarget.includes(query)) return false;
+        }
+
+        return true;
+      }).sort((a, b) => {
+        const sortType = sortFilter.value;
+        if (sortType === 'PRIORITY') {
+          const weights = { 'YESIL': 3, 'SARI': 2, 'KIRMIZI': 1 };
+          return (weights[b.status] || 0) - (weights[a.status] || 0) || (b.matchScore || 0) - (a.matchScore || 0);
+        }
+        if (sortType === 'QUOTA') {
+          return (b.quota || 0) - (a.quota || 0);
+        }
+        if (sortType === 'DEADLINE') {
+          return (a.deadline || '99.99.9999').localeCompare(b.deadline || '99.99.9999');
+        }
+        return 0;
+      });
+    }
+
+    // İlan Kartlarını Ekrana Bas (Render)
+    function renderPostings() {
+      const items = getFilteredPostings();
+      postingsContainer.innerHTML = '';
+
+      if (items.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
+
+      items.forEach(p => {
+        const isFav = favorites.includes(p.id);
+        const isRev = reviewed.includes(p.id);
+        const rem = getRemainingDaysText(p.deadline);
+
+        // Durum Renkleri
+        let statusBadge = '';
+        let borderClass = 'border-slate-800';
+
+        if (p.status === 'YESIL') {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 badge-glow-green flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> TAM UYUMLU</span>';
+          borderClass = 'border-emerald-900/40 hover:border-emerald-600/60';
+        } else if (p.status === 'SARI') {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 badge-glow-yellow flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> İNCELEME GEREKLİ</span>';
+          borderClass = 'border-amber-900/40 hover:border-amber-600/60';
+        } else {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center gap-1"><i class="fa-solid fa-ban"></i> ELENDİ</span>';
+          borderClass = 'border-rose-950 hover:border-rose-900 opacity-75';
+        }
+
+        // Nitelik Kodları Rozetleri
+        const codesHtml = (p.qualificationCodes || []).map(code => {
+          return `<span class="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-medium" title="${QUAL_DESC[code] || 'Nitelik Kodu'}">${code}</span>`;
+        }).join(' ');
+
+        const card = document.createElement('div');
+        card.className = `bg-slate-900 border ${borderClass} rounded-2xl p-5 flex flex-col justify-between transition duration-200 relative group`;
+        if (isRev) {
+          card.classList.add('bg-slate-900/50');
+        }
+
+        card.innerHTML = `
+          <div>
+            <!-- Üst Bar: Durum Rozeti ve Favori Butonu -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              ${statusBadge}
+              <div class="flex items-center gap-1.5">
+                <button onclick="toggleReviewed('${p.id}')" class="p-1.5 rounded-lg text-xs ${isRev ? 'text-emerald-400 bg-emerald-500/10' : 'text-slate-500 hover:text-slate-300'} transition" title="${isRev ? 'İncelendi olarak işaretlendi' : 'İncelendi işaretle'}">
+                  <i class="fa-${isRev ? 'solid' : 'regular'} fa-eye"></i>
+                </button>
+                <button onclick="toggleFavorite('${p.id}')" class="p-1.5 rounded-lg text-xs ${isFav ? 'text-amber-400 bg-amber-500/10' : 'text-slate-500 hover:text-amber-400'} transition" title="Favorilere Ekle">
+                  <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kurum ve Başlık -->
+            <div class="text-xs font-semibold text-emerald-400/90 tracking-wide uppercase mb-1">
+              ${p.institution || 'Kamu Kurumu'}
+            </div>
+            <h3 class="text-sm font-bold text-white line-clamp-2 mb-3 group-hover:text-emerald-300 transition">
+              ${p.title}
+            </h3>
+
+            <!-- Eşleşme Sebebi / Uygunluk Notu -->
+            ${p.matchReason ? `
+              <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 mb-3 text-xs text-slate-300 flex items-start gap-2">
+                <i class="fa-solid fa-lightbulb text-amber-400 mt-0.5 text-xs"></i>
+                <span class="line-clamp-2">${p.matchReason}</span>
+              </div>
+            ` : ''}
+
+            <!-- Nitelik Kodları -->
+            ${codesHtml ? `<div class="flex flex-wrap gap-1.5 mb-4">${codesHtml}</div>` : ''}
+
+            <!-- Meta Bilgiler (Kontenjan, Şehir, Kalan Gün) -->
+            <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 mb-4">
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-users text-slate-500"></i>
+                <span>Kontenjan: <strong class="text-slate-200">${p.quota || 'Belirtilmedi'}</strong></span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <i class="fa-solid fa-location-dot text-slate-500"></i>
+                <span class="truncate">${p.city || 'Tüm İller'}</span>
+              </div>
+              <div class="flex items-center gap-1.5 col-span-2">
+                <i class="fa-regular fa-clock text-slate-500"></i>
+                <span>Son Başvuru: <strong class="text-slate-200">${p.deadline || 'Belirtilmedi'}</strong></span>
+                <span class="ml-auto px-2 py-0.5 rounded text-[10px] font-semibold ${rem.badgeClass}">
+                  ${rem.text}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aksiyon Butonları -->
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-800">
+            <button onclick="openDetailModal('${p.id}')" class="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+              <i class="fa-solid fa-circle-info"></i> Detaylar
+            </button>
+            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-600/20">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> İlana Git
+            </a>
+          </div>
+        `;
+        postingsContainer.appendChild(card);
+      });
+    }
+
+    // Favoriye Ekleme / Çıkarma
+    window.toggleFavorite = function(id) {
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(f => f !== id);
+      } else {
+        favorites.push(id);
+      }
+      localStorage.setItem('atama_favorites', JSON.stringify(favorites));
+      updateStats();
+      renderPostings();
+    };
+
+    // İncelendi Olarak İşaretleme
+    window.toggleReviewed = function(id) {
+      if (reviewed.includes(id)) {
+        reviewed = reviewed.filter(r => r !== id);
+      } else {
+        reviewed.push(id);
+      }
+      localStorage.setItem('atama_reviewed', JSON.stringify(reviewed));
+      renderPostings();
+    };
+
+    // Detay Modalı Aç
+    window.openDetailModal = function(id) {
+      const p = allPostings.find(item => item.id === id);
+      if (!p) return;
+
+      const rem = getRemainingDaysText(p.deadline);
+      const codesList = (p.qualificationCodes || []).map(code => {
+        const desc = QUAL_DESC[code] || 'Özel nitelik şartı';
+        return `
+          <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-xs">
+            <span class="font-bold text-emerald-400 font-mono">${code}</span>
+            <span class="text-slate-300 ml-3 text-right">${desc}</span>
+          </div>
+        `;
+      }).join('');
+
+      modalContent.innerHTML = `
+        <div class="border-b border-slate-800 pb-4">
+          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">${p.institution || 'Kamu Kurumu'}</span>
+          <h2 class="text-lg font-bold text-white mt-1">${p.title}</h2>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${p.status === 'YESIL' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : (p.status === 'SARI' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30')}">
+              ${p.status === 'YESIL' ? '🟢 Tam Uyumlu' : (p.status === 'SARI' ? '🟡 İnceleme Gerekli' : '🔴 Elendi')}
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs ${rem.badgeClass}">${rem.text}</span>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <div class="font-semibold text-slate-400 mb-1">Uygunluk Analiz Raporu:</div>
+            <div class="text-slate-200">${p.matchReason || 'Analiz verisi bulunamadı.'}</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400">Kaynak:</span>
+              <div class="text-white font-medium mt-0.5">${p.sourceName || p.sourceKey}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400">Kontenjan:</span>
+              <div class="text-white font-medium mt-0.5">${p.quota || 'Belirtilmedi'}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400">Öğrenim Düzeyi:</span>
+              <div class="text-white font-medium mt-0.5">${p.educationLevel || 'Ortaöğretim / Lise'}</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400">KPSS Şartı:</span>
+              <div class="text-white font-medium mt-0.5">${p.kpssType || 'P94'} ${p.minKpssScore ? `(Taban: ${p.minKpssScore})` : ''}</div>
+            </div>
+          </div>
+
+          ${codesList ? `
+            <div>
+              <div class="font-semibold text-slate-400 mb-2">Aranan Nitelik ve Şart Kodları:</div>
+              <div class="space-y-1.5">${codesList}</div>
+            </div>
+          ` : ''}
+
+          ${p.details ? `
+            <div>
+              <div class="font-semibold text-slate-400 mb-1">İlan Metni / Notlar:</div>
+              <p class="text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800 leading-relaxed max-h-36 overflow-y-auto">${p.details}</p>
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition">
+            Kapat
+          </button>
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-emerald-600/30">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Resmi İlana Git
+          </a>
+        </div>
+      `;
+
+      detailModal.classList.remove('hidden');
+    };
+
+    function closeModal() {
+      detailModal.classList.add('hidden');
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    detailModal.addEventListener('click', (e) => {
+      if (e.target === detailModal) closeModal();
+    });
+
+    // Olay Dinleyicileri (Event Listeners)
+    statusTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        statusTabs.forEach(t => {
+          t.classList.remove('bg-emerald-600', 'text-white');
+          t.classList.add('bg-slate-800');
+        });
+        tab.classList.remove('bg-slate-800');
+        tab.classList.add('bg-emerald-600', 'text-white');
+        currentStatusFilter = tab.getAttribute('data-status');
+        renderPostings();
+      });
+    });
+
+    searchInput.addEventListener('input', () => {
+      clearSearchBtn.classList.toggle('hidden', !searchInput.value);
+      renderPostings();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      renderPostings();
+    });
+
+    sourceFilter.addEventListener('change', renderPostings);
+    sortFilter.addEventListener('change', renderPostings);
+    hideReviewedCheckbox.addEventListener('change', renderPostings);
+
+    document.getElementById('resetFiltersBtn')?.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      sourceFilter.value = 'ALL';
+      currentStatusFilter = 'ALL';
+      statusTabs[0].click();
+      renderPostings();
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      refreshBtn.querySelector('i').classList.add('animate-spin');
+      loadPostings().finally(() => {
+        setTimeout(() => refreshBtn.querySelector('i').classList.remove('animate-spin'), 600);
+      });
+    });
+
+    // Sayfa Yüklendiğinde Başlat
+    document.addEventListener('DOMContentLoaded', loadPostings);
+  </script>
+</body>
+</html>

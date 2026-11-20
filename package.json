@@ -1,0 +1,29 @@
+{
+  "name": "atama-radari",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Otomasyonlu KPSS P94 ve Kamu Personeli Alim Takip, Uygunluk Analiz ve Bildirim Sistemi",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "node test.js",
+    "scan": "node scraper.js",
+    "test-notify": "node test-notify.js",
+    "start": "node scraper.js"
+  },
+  "keywords": [
+    "kpss",
+    "p94",
+    "kamu-ilan",
+    "resmi-gazete",
+    "atama-radari",
+    "ntfy",
+    "telegram-bot"
+  ],
+  "author": "Atama Radarı Ekibi",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "iconv-lite": "^0.6.3",
+    "pdf-parse": "^1.1.1"
+  }
+}
