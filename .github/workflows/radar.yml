@@ -58,5 +58,8 @@ jobs:
             echo "Kaydedilecek yeni degisiklik bulunmuyor."
           else
             git commit -m "Otomatik kamu ilani tarama ve analiz guncellemesi [skip ci]"
-            git push
+            # Uzak repodaki son degisiklikleri cek ve rebase et (cakisma durumunda taze taranan veriyi koru)
+            git pull --rebase -X ours origin main || git pull --rebase origin main || true
+            # Guvenli sekilde pushla, gerekirse force-with-lease veya force ile non-fast-forward engelini as
+            git push origin main || git push --force-with-lease origin main || git push origin main --force
           fi
