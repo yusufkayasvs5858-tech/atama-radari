@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "21.11.2026 16:14:04",
+  "lastScanAt": "21.11.2026 20:27:18",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -7,14 +7,14 @@
     "kpssScore": 75
   },
   "statistics": {
-    "total": 14,
+    "total": 15,
     "green": 0,
-    "yellow": 12,
+    "yellow": 13,
     "red": 2,
     "expired": 0
   },
   "notificationSummary": {
-    "sentCount": 0,
+    "sentCount": 1,
     "skippedCount": 12,
     "failCount": 0
   },
@@ -23,8 +23,8 @@
       "name": "T.C. Resmî Gazete",
       "ok": true,
       "state": "SUCCESS",
-      "count": 2,
-      "note": "2 adet Resmî Gazete ilanı tarandı"
+      "count": 1,
+      "note": "1 adet Resmî Gazete ilanı tarandı"
     },
     "kamuIlan": {
       "name": "Cumhurbaşkanlığı Kamu İlan",
