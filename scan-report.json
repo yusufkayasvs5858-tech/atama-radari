@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "21.11.2026 20:27:18",
+  "lastScanAt": "21.11.2026 21:46:12",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -9,13 +9,13 @@
   "statistics": {
     "total": 15,
     "green": 0,
-    "yellow": 13,
-    "red": 2,
+    "yellow": 12,
+    "red": 3,
     "expired": 0
   },
   "notificationSummary": {
-    "sentCount": 1,
-    "skippedCount": 12,
+    "sentCount": 2,
+    "skippedCount": 10,
     "failCount": 0
   },
   "sources": {
@@ -23,15 +23,15 @@
       "name": "T.C. Resmî Gazete",
       "ok": true,
       "state": "SUCCESS",
-      "count": 1,
-      "note": "1 adet Resmî Gazete ilanı tarandı"
+      "count": 0,
+      "note": "0 adet Resmî Gazete personel ilanı tarandı"
     },
     "kamuIlan": {
       "name": "Cumhurbaşkanlığı Kamu İlan",
       "ok": false,
       "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Hata: $(...).text is not a function"
+      "note": "Erişim Hatası (HTTP 403)"
     },
     "osym": {
       "name": "ÖSYM Başkanlığı",
@@ -42,17 +42,17 @@
     },
     "saglikBakanligi": {
       "name": "T.C. Sağlık Bakanlığı (YHGM)",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Hata: $(...).text is not a function"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 8,
+      "note": "8 adet Sağlık Bakanlığı duyurusu tarandı"
     },
     "adaletBakanligi": {
       "name": "T.C. Adalet Bakanlığı (PGM)",
-      "ok": false,
-      "state": "TEMP_ERROR",
+      "ok": true,
+      "state": "SUCCESS",
       "count": 0,
-      "note": "Hata: $(...).text is not a function"
+      "note": "0 adet Adalet Bakanlığı duyurusu tarandı"
     },
     "gsb": {
       "name": "T.C. Gençlik ve Spor Bakanlığı",
@@ -63,17 +63,17 @@
     },
     "iskur": {
       "name": "T.C. İŞKUR (Kamu Alımları)",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Geçici Hata: $(...).text is not a function"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 2,
+      "note": "2 adet İŞKUR kamu duyurusu bulundu"
     },
     "kariyerKapisi": {
       "name": "CBİKO Kariyer Kapısı",
-      "ok": false,
-      "state": "TEMP_ERROR",
+      "ok": true,
+      "state": "REACHABLE_NO_SCRAPE",
       "count": 0,
-      "note": "Geçici Hata: $(...).text is not a function"
+      "note": "Erişilebilir (HTTP 200) — İstemci SPA arayüzü nedeniyle ana sayfa izleniyor"
     }
   }
 }
