@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const { readJsonSafe, atomicWriteJson, getTurkeyTimestamp, isDateExpired } = require('./lib/utils');
 const { loadUserProfile, classifyPosting } = require('./lib/matcher');
-const { dispatchNotifications } = require('./lib/notifier');
+const { dispatchNotifications, sendHeartbeatNotification } = require('./lib/notifier');
 const { runAllScrapers } = require('./lib/scrapers');
 
 async function main() {
@@ -112,6 +112,12 @@ async function main() {
   atomicWriteJson(notifiedDataPath, notifiedDb);
 
   console.log(`[BİLDİRİM RAPORU] İletilen: ${notifyReport.sentCount} | Zaten Bildirilmiş: ${notifyReport.skippedCount} | Başarısız: ${notifyReport.failCount}`);
+
+  // Yeni ilan çıkmasa dahi otomasyonun çalıştığını teyit eden durum (heartbeat) bildirimi
+  if (notifyReport.sentCount === 0) {
+    console.log('[DURUM BİLDİRİMİ] Yeni ilan yok, periyodik çalışma teyit bildirimi gönderiliyor...');
+    await sendHeartbeatNotification({}, stats);
+  }
 
   // 6. Veritabanını Atomik Olarak Kaydet
   atomicWriteJson(ilanlarRootPath, allPostings);

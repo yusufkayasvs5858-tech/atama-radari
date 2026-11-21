@@ -2,8 +2,8 @@ name: Atama Radari Otomatik Tarama
 
 on:
   schedule:
-    # Türkiye Saati (UTC+3) ile Günde 3 Kez: 08:00, 13:00 ve 19:00
-    - cron: '0 5,10,16 * * *'
+    # 2 Saatte Bir Kesintisiz Otomatik Tarama (00:00, 02:00, 04:00 ... 22:00)
+    - cron: '0 */2 * * *'
   workflow_dispatch:
   push:
     branches:

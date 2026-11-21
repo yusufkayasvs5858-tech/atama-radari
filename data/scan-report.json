@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "21.11.2026 21:46:12",
+  "lastScanAt": "21.11.2026 22:09:59",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -7,16 +7,16 @@
     "kpssScore": 75
   },
   "statistics": {
-    "total": 15,
-    "green": 0,
-    "yellow": 12,
-    "red": 3,
-    "expired": 0
+    "total": 91,
+    "green": 14,
+    "yellow": 62,
+    "red": 15,
+    "expired": 2
   },
   "notificationSummary": {
-    "sentCount": 2,
-    "skippedCount": 10,
-    "failCount": 0
+    "sentCount": 0,
+    "skippedCount": 0,
+    "failCount": 76
   },
   "sources": {
     "resmiGazete": {
@@ -28,10 +28,10 @@
     },
     "kamuIlan": {
       "name": "Cumhurbaşkanlığı Kamu İlan",
-      "ok": false,
-      "state": "TEMP_ERROR",
-      "count": 0,
-      "note": "Erişim Hatası (HTTP 403)"
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 34,
+      "note": "34 adet Kamu İlan kaydı bulundu"
     },
     "osym": {
       "name": "ÖSYM Başkanlığı",
@@ -44,15 +44,15 @@
       "name": "T.C. Sağlık Bakanlığı (YHGM)",
       "ok": true,
       "state": "SUCCESS",
-      "count": 8,
-      "note": "8 adet Sağlık Bakanlığı duyurusu tarandı"
+      "count": 0,
+      "note": "0 adet güncel Sağlık Bakanlığı personel alım duyurusu tarandı"
     },
     "adaletBakanligi": {
       "name": "T.C. Adalet Bakanlığı (PGM)",
       "ok": true,
       "state": "SUCCESS",
-      "count": 0,
-      "note": "0 adet Adalet Bakanlığı duyurusu tarandı"
+      "count": 10,
+      "note": "10 adet Adalet Bakanlığı duyurusu tarandı"
     },
     "gsb": {
       "name": "T.C. Gençlik ve Spor Bakanlığı",
@@ -65,8 +65,8 @@
       "name": "T.C. İŞKUR (Kamu Alımları)",
       "ok": true,
       "state": "SUCCESS",
-      "count": 2,
-      "note": "2 adet İŞKUR kamu duyurusu bulundu"
+      "count": 11,
+      "note": "11 adet İŞKUR kamu duyurusu bulundu"
     },
     "kariyerKapisi": {
       "name": "CBİKO Kariyer Kapısı",
@@ -74,6 +74,20 @@
       "state": "REACHABLE_NO_SCRAPE",
       "count": 0,
       "note": "Erişilebilir (HTTP 200) — İstemci SPA arayüzü nedeniyle ana sayfa izleniyor"
+    },
+    "kariyerNet": {
+      "name": "Kariyer.net (Kamu & Memur)",
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 4,
+      "note": "4 adet uygun memur/büro ilanı tarandı"
+    },
+    "kamuHaberPortallari": {
+      "name": "Kamu Personel Alım Portalları",
+      "ok": true,
+      "state": "SUCCESS",
+      "count": 33,
+      "note": "33 adet bağımsız portal ilanı tarandı"
     }
   }
 }
