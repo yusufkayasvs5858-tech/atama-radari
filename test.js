@@ -9,6 +9,7 @@ const {
 } = require('./lib/utils');
 const { extractQualificationCodes, QUALIFICATIONS_DB } = require('./lib/qualifications');
 const { classifyPosting, DEFAULT_PROFILE } = require('./lib/matcher');
+const { isLegitResmiGazeteHiring } = require('./lib/scrapers/resmigazete');
 
 let passedTests = 0;
 let totalTests = 0;
@@ -181,6 +182,31 @@ runTest('Kura duyurusu ilanı -> KIRMIZI olmalı', () => {
   const result = classifyPosting(posting, DEFAULT_PROFILE);
   assert.strictEqual(result.status, 'KIRMIZI', 'Kura duyurusu ilanı KIRMIZI olmalı');
   assert.strictEqual(result.matchScore, 0);
+});
+
+console.log('\n🏛️ 6. Resmî Gazete ve Cumhurbaşkanlığı Bürokratik Karar Filtresi:');
+runTest('Cumhurbaşkanlığı Atama Kararı (Karar: 2026/389) reddedilmeli', () => {
+  const text = 'Cumhurbaşkanlığı Tarafından Yapılan Atamalar Hakkında Kararlar (Karar: 2026/389, 390, 391)';
+  assert.strictEqual(isLegitResmiGazeteHiring(text), false, 'CB atama kararı false dönmeli');
+  const classified = classifyPosting({ title: text, details: text }, DEFAULT_PROFILE);
+  assert.strictEqual(classified.status, 'KIRMIZI');
+});
+
+runTest('Görevden alma ve atanma kararı reddedilmeli', () => {
+  const text = 'Kültür ve Turizm Bakanlığı Güzel Sanatlar Genel Müdür Yardımcısı görevden alınmış, yerine Ahmet Yılmaz atanmıştır.';
+  assert.strictEqual(isLegitResmiGazeteHiring(text), false, 'Görevden alma / atanmıştır false dönmeli');
+  const classified = classifyPosting({ title: text, details: text }, DEFAULT_PROFILE);
+  assert.strictEqual(classified.status, 'KIRMIZI');
+});
+
+runTest('İhale yasaklama kararı reddedilmeli', () => {
+  const text = 'Milli Savunma Bakanlığı Tedarik Hizmetleri İhalelere Katılmaktan Yasaklama Kararı';
+  assert.strictEqual(isLegitResmiGazeteHiring(text), false, 'İhale yasaklama false dönmeli');
+});
+
+runTest('Gerçek KPSS ve Sözleşmeli Personel Alımı kabul edilmeli', () => {
+  const text = 'Tarım ve Orman Bakanlığı 150 Sözleşmeli Personel Alımı ve KPSS Başvuru Şartları İlanı';
+  assert.strictEqual(isLegitResmiGazeteHiring(text), true, 'Gerçek personel alımı true dönmeli');
 });
 
 console.log('\n' + '='.repeat(65));

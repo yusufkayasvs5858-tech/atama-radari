@@ -31,7 +31,7 @@
       "ok": false,
       "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Erişim Hatası (HTTP 403)"
+      "note": "Hata: $(...).text is not a function"
     },
     "osym": {
       "name": "ÖSYM Başkanlığı",
@@ -42,17 +42,17 @@
     },
     "saglikBakanligi": {
       "name": "T.C. Sağlık Bakanlığı (YHGM)",
-      "ok": true,
-      "state": "SUCCESS",
-      "count": 8,
-      "note": "8 adet Sağlık Bakanlığı duyurusu tarandı"
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Hata: $(...).text is not a function"
     },
     "adaletBakanligi": {
       "name": "T.C. Adalet Bakanlığı (PGM)",
-      "ok": true,
-      "state": "SUCCESS",
+      "ok": false,
+      "state": "TEMP_ERROR",
       "count": 0,
-      "note": "0 adet Adalet Bakanlığı duyurusu tarandı"
+      "note": "Hata: $(...).text is not a function"
     },
     "gsb": {
       "name": "T.C. Gençlik ve Spor Bakanlığı",
@@ -63,17 +63,17 @@
     },
     "iskur": {
       "name": "T.C. İŞKUR (Kamu Alımları)",
-      "ok": true,
-      "state": "SUCCESS",
-      "count": 2,
-      "note": "2 adet İŞKUR kamu duyurusu bulundu"
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Geçici Hata: $(...).text is not a function"
     },
     "kariyerKapisi": {
       "name": "CBİKO Kariyer Kapısı",
-      "ok": true,
-      "state": "REACHABLE_NO_SCRAPE",
+      "ok": false,
+      "state": "TEMP_ERROR",
       "count": 0,
-      "note": "Erişilebilir (HTTP 200) — İstemci SPA arayüzü nedeniyle ana sayfa izleniyor"
+      "note": "Geçici Hata: $(...).text is not a function"
     }
   }
 }
