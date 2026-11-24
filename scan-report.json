@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "23.11.2026 19:56:04",
+  "lastScanAt": "24.11.2026 06:40:39",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -7,15 +7,15 @@
     "kpssScore": 75
   },
   "statistics": {
-    "total": 217,
-    "green": 41,
-    "yellow": 152,
+    "total": 227,
+    "green": 43,
+    "yellow": 160,
     "red": 24,
     "expired": 2
   },
   "notificationSummary": {
-    "sentCount": 21,
-    "skippedCount": 172,
+    "sentCount": 10,
+    "skippedCount": 193,
     "failCount": 0
   },
   "sources": {
@@ -77,17 +77,17 @@
     },
     "kariyerNet": {
       "name": "Kariyer.net (Kamu & Memur)",
-      "ok": true,
-      "state": "SUCCESS",
-      "count": 2,
-      "note": "2 adet uygun memur/büro ilanı tarandı"
+      "ok": false,
+      "state": "TEMP_ERROR",
+      "count": 0,
+      "note": "Erişim Hatası (HTTP 403)"
     },
     "kamuHaberPortallari": {
       "name": "Kamu Personel Alım Portalları",
       "ok": true,
       "state": "SUCCESS",
-      "count": 53,
-      "note": "53 adet bağımsız portal ilanı tarandı"
+      "count": 54,
+      "note": "54 adet bağımsız portal ilanı tarandı"
     }
   }
 }
