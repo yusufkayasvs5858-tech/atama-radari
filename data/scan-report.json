@@ -1,5 +1,5 @@
 {
-  "lastScanAt": "28.11.2026 12:39:09",
+  "lastScanAt": "28.11.2026 20:53:32",
   "profileUsed": {
     "name": "Ortaöğretim KPSS P94 Adayı",
     "educationLevel": "Ortaöğretim",
@@ -7,15 +7,15 @@
     "kpssScore": 75
   },
   "statistics": {
-    "total": 402,
-    "green": 85,
-    "yellow": 287,
+    "total": 410,
+    "green": 86,
+    "yellow": 294,
     "red": 30,
     "expired": 2
   },
   "notificationSummary": {
-    "sentCount": 15,
-    "skippedCount": 357,
+    "sentCount": 8,
+    "skippedCount": 372,
     "failCount": 0
   },
   "sources": {
@@ -86,8 +86,8 @@
       "name": "Kamu Personel Alım Portalları",
       "ok": true,
       "state": "SUCCESS",
-      "count": 65,
-      "note": "65 adet bağımsız portal ilanı tarandı"
+      "count": 24,
+      "note": "24 adet bağımsız portal ilanı tarandı"
     }
   }
 }
